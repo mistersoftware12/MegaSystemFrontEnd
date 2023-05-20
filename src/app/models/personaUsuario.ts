@@ -13,4 +13,5 @@ export class PersonaUsuario {
   nombreSucursal:String
 
   idSucursal:Number;
+  idEmpresa:Number;
 }

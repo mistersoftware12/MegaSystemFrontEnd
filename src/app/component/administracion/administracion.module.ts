@@ -8,6 +8,7 @@ import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from "@angular/common";
 import { CrudClientesComponent } from './personas/CrudClientes/crud-clientes.component';
 import { CrudUsuariosComponent } from './personas/CrudUsuario/crud-usuario.component';
+import { CrearModificarUsuarioComponent } from './personas/CrudUsuario/NuevoModificarUsuario/crearModificarUsuario.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -30,6 +31,10 @@ const routes: Routes = [
     component: CrudClientesComponent
   },
 
+  {
+    path: 'creaModificaUsuario',
+    component: CrearModificarUsuarioComponent
+  },
 
 
 
@@ -39,8 +44,9 @@ const routes: Routes = [
   declarations: [
     BienvenidaComponent,
     CrudClientesComponent,
-    CrudUsuariosComponent,
 
+    CrudUsuariosComponent,
+    CrearModificarUsuarioComponent,
 
 
   ],

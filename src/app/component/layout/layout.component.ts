@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { PersonaUsuario } from "../../models/personaUsuario";
-import { cedula } from 'src/environments/environment';
+import { cedula, idEmpresa } from 'src/environments/environment';
 import { idRol } from 'src/environments/environment';
 import { idSucursal } from 'src/environments/environment';
 import { Title } from '@angular/platform-browser';
@@ -48,6 +48,7 @@ export class LayoutComponent implements OnInit {
         cedula.setcedula = this.persona.cedula;
         idRol.setidRol = this.persona.idRol;
         idSucursal.setIdSucursal = this.persona.idSucursal;
+        idEmpresa.setIdEmpresa = this.persona.idEmpresa;
 
       }
     } catch (e) {

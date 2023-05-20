@@ -56,3 +56,15 @@ export const idUniversal = {
     this.idUniversal = newIdUniversal;
   }
 }
+
+export const idEmpresa = {
+  idEmpresa: '0',
+
+  get getIdEmpresa() {
+    return this.idEmpresa;
+  },
+
+  set setIdEmpresa(newIdEmpresa) {
+    this.idEmpresa = newIdEmpresa;
+  }
+}

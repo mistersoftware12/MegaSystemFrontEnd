@@ -9,13 +9,13 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import * as XLSX from 'xlsx';
 import { DatePipe } from "@angular/common";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ClienteService } from 'src/app/services/cliente.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Cliente } from 'src/app/models/cliente';
 import { Usuario } from 'src/app/models/persona';
 import { Sucursal } from 'src/app/models/sucursal';
 import { cedula } from 'src/environments/environment';
-
+import { idEmpresa } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -64,7 +64,7 @@ export class CrudUsuariosComponent implements OnInit {
   })
 
 
-  displayedColumns: string[] = ['id', 'cedula', 'nombre', 'apellidos', 'sucursal', 'rol', 'telefono', 'nacimiento', 'correo', 'documento'];
+  displayedColumns: string[] = ['id', 'cedula', 'nombre', 'apellidos', 'rol', 'telefono', 'nacimiento', 'correo', 'documento'];
   dataSource: MatTableDataSource<Cliente>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -76,6 +76,7 @@ export class CrudUsuariosComponent implements OnInit {
   constructor(
     private _snackBar: MatSnackBar,
     private usuarioService: UsuarioService,
+    private router: Router,
   ) {
 
   }
@@ -88,7 +89,7 @@ export class CrudUsuariosComponent implements OnInit {
 
 
   public mostrarNuevo() {
-
+    this.router.navigate(['/panel/biblioteca/creaModificaUsuario']);
 
     if (this.numeroControl == 3) {
       this.vaciarFormulario();
@@ -143,7 +144,8 @@ export class CrudUsuariosComponent implements OnInit {
 
   public listarInformacion() {
     this.loaderActualizar = true;
-    this.usuarioService.getAllUsuarios().subscribe(value => {
+    this.usuarioService.getAllUsuarios(idEmpresa.getIdEmpresa).subscribe(value => {
+
 
       this.UsuarioLista = value;
 
@@ -158,14 +160,14 @@ export class CrudUsuariosComponent implements OnInit {
 
   public listarSucursal() {
 
-/*
-
-    this.empresaService.getSucursalAll().subscribe(value => {
-
-      this.sucursalLista = value;
-
-    })
-*/
+    /*
+    
+        this.empresaService.getSucursalAll().subscribe(value => {
+    
+          this.sucursalLista = value;
+    
+        })
+    */
 
   }
 
@@ -183,7 +185,7 @@ export class CrudUsuariosComponent implements OnInit {
 
 
   public guardarInformacion() {
-    this. loaderActualizar = true;
+    this.loaderActualizar = true;
     this.UsuarioListaGuardar.cedula = Object.values(this.formGrupos.getRawValue())[0];
     this.UsuarioListaGuardar.nombres = Object.values(this.formGrupos.getRawValue())[1];
     this.UsuarioListaGuardar.apellidos = Object.values(this.formGrupos.getRawValue())[2];
@@ -201,7 +203,7 @@ export class CrudUsuariosComponent implements OnInit {
 
       this.mostrarLista();
     }, error => {
-      this. loaderActualizar = false;
+      this.loaderActualizar = false;
       this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
 
     })
@@ -214,7 +216,7 @@ export class CrudUsuariosComponent implements OnInit {
 
   editarInformacion(id: any) {
 
-    this. loaderActualizar = true;
+    this.loaderActualizar = true;
     this.idPersona = id;
     this.botonParaGuardar = false;
     this.botonParaEditar = true;
@@ -245,14 +247,14 @@ export class CrudUsuariosComponent implements OnInit {
       }
 
     }
-    this. loaderActualizar = false;
+    this.loaderActualizar = false;
 
   }
 
 
   public guardarEditarInformacion() {
 
-    this. loaderActualizar = true;
+    this.loaderActualizar = true;
     this.UsuarioListaGuardar.cedula = Object.values(this.formGrupos.getRawValue())[0];
     this.UsuarioListaGuardar.nombres = Object.values(this.formGrupos.getRawValue())[1];
     this.UsuarioListaGuardar.apellidos = Object.values(this.formGrupos.getRawValue())[2];
@@ -278,7 +280,7 @@ export class CrudUsuariosComponent implements OnInit {
 
     }, error => {
       this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
-      this. loaderActualizar = false;
+      this.loaderActualizar = false;
     })
 
 
@@ -334,24 +336,24 @@ export class CrudUsuariosComponent implements OnInit {
     this.loaderActualizar = true
     var pipe: DatePipe = new DatePipe('es')
     var dia: String = new Date().toISOString();
-    
-    this.usuarioService.getAllUsuarios().subscribe(value => {
-      
-      this.usuarioService.getAllUsuarios().subscribe(async valueb => {
-        
+
+    this.usuarioService.getAllUsuarios(idEmpresa.getIdEmpresa).subscribe(value => {
+
+      this.usuarioService.getAllUsuarios(idEmpresa.getIdEmpresa).subscribe(async valueb => {
+
         const pdfDefinition: any = {
 
-          footer: function(currentPage, pageCount) { return '.   Pagina ' + currentPage.toString() + ' de ' + pageCount; },
-          header: function(currentPage, pageCount, pageSize) {
+          footer: function (currentPage, pageCount) { return '.   Pagina ' + currentPage.toString() + ' de ' + pageCount; },
+          header: function (currentPage, pageCount, pageSize) {
             // you can apply any logic and return any valid pdfmake element
-        
+
             /*
             return [
               { text: 'simple text', alignment: (currentPage % 2) ? 'left' : 'right' },
               { canvas: [ { type: 'rect', x: 170, y: 32, w: pageSize.width - 170, h: 40 } ] }
             ]*/
           },
-          
+
           content: [
             { image: await this.getBase64ImageFromURL('assets/images/kadapaLogo.png'), width: 100 },
             {
@@ -370,28 +372,28 @@ export class CrudUsuariosComponent implements OnInit {
                 body: [
                   ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'ROL', 'SUCURSAL', 'CORREO', 'TELEFONO'],
                   [value.map(function (item) {
-                    return { text: item.id + '', fontSize: 11 } 
+                    return { text: item.id + '', fontSize: 11 }
                   }),
                   value.map(function (item) {
-                    return { text: item.cedula + '', fontSize: 11}
+                    return { text: item.cedula + '', fontSize: 11 }
                   }),
                   value.map(function (item) {
-                    return { text: item.nombres + '', fontSize: 11}
+                    return { text: item.nombres + '', fontSize: 11 }
                   }),
                   value.map(function (item) {
-                    return { text: item.apellidos + '', fontSize: 11}
+                    return { text: item.apellidos + '', fontSize: 11 }
                   }),
                   value.map(function (item) {
-                    return { text: item.nombreRol + '', fontSize: 11}
+                    return { text: item.nombreRol + '', fontSize: 11 }
                   }),
                   value.map(function (item) {
-                    return { text: item.nombreSucursal + '', fontSize: 11}
+                    return { text: item.nombreSucursal + '', fontSize: 11 }
                   }),
                   value.map(function (item) {
-                    return { text: item.email + '', fontSize: 11}
+                    return { text: item.email + '', fontSize: 11 }
                   }),
                   value.map(function (item) {
-                    return { text: item.telefono + '', fontSize: 11}
+                    return { text: item.telefono + '', fontSize: 11 }
                   })
                   ],
 
@@ -401,7 +403,7 @@ export class CrudUsuariosComponent implements OnInit {
             },
             { text: '    ' },
             { text: '    ' },
-          
+
 
             {
               table: {
@@ -414,9 +416,9 @@ export class CrudUsuariosComponent implements OnInit {
                 ]
               },
             },
-            
+
           ],
-          
+
           pageOrientation: 'landscape',
         }
 

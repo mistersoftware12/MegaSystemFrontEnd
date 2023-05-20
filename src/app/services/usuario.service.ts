@@ -32,8 +32,8 @@ export class UsuarioService {
     return this.http.put<PersonaUsuario>(this.urlEndPoint + "/persona/updateUsuario", personaRequest, { headers: this.httpHeaders })
   }
 
-  getAllUsuarios(): Observable<PersonaUsuario[]> {
-    return this.http.get(this.urlEndPoint + "/persona/allUsuarios", { headers: this.httpHeaders }).pipe(map(Response => Response as PersonaUsuario[]))
+  getAllUsuarios(idEmpresa:any): Observable<PersonaUsuario[]> {
+    return this.http.get(this.urlEndPoint + "/persona/allUsuarios/"+idEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as PersonaUsuario[]))
   }
 
 

@@ -16,6 +16,7 @@ import { cedula } from 'src/environments/environment';
 import { CuidadService } from 'src/app/services/cuidad.service';
 import { Cuidad } from 'src/app/models/cuidad';
 import Swal from 'sweetalert2';
+import { idEmpresa } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -361,7 +362,7 @@ export class CrudClientesComponent implements OnInit {
 
     this.clienteService.getClientesAll().subscribe(value => {
       console.info(value)
-      this.usuarioService.getAllUsuarios().subscribe(async valueb => {
+      this.usuarioService.getAllUsuarios(idEmpresa.getIdEmpresa).subscribe(async valueb => {
         console.info(valueb)
 
         const pdfDefinition: any = {

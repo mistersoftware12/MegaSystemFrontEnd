@@ -1,0 +1,116 @@
+<section>
+    <br>
+    <mat-card class="example-card" style="background: #F2F1E9">
+        <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+        <div style="overflow-x:auto; ">
+            <mat-progress-bar *ngIf="loaderCargaDatos" mode="indeterminate"></mat-progress-bar>
+            <div>
+                <div class="opcion1fd">
+                    <h3> <strong>USUARIO</strong></h3>
+                </div>
+            </div>
+
+            <h4>DATOS DE USUARIO</h4>
+
+
+            <table>
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Cédula</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha Nacimiento</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Nombre</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Apellido</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Email</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Clave</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Télefono</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione Rol</mat-label>
+                            <mat-select >
+                                <mat-option *ngFor="let option of estadoIva"
+                                    [value]="option.id">{{option.nombres}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+               
+            </table>
+
+        </div>
+
+
+        <div>
+            <div>
+                <div class="opcion1fd">
+                    <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar">
+                        <mat-icon>save</mat-icon> REGISTRAR
+                    </button>
+
+                    <button mat-raised-button mat-flat-button color="warn" class="buttonprincipales"
+                        (click)="botonCancelarRegistro()" class="buttonguardar">
+                        <mat-icon>close</mat-icon> CANCELAR
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </mat-card>
+</section>
+
+
+<br>

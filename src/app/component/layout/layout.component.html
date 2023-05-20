@@ -7,33 +7,18 @@
 
       <button mat-button [matMenuTriggerFor]="animals"> <mat-icon>settings</mat-icon><br>MANTENIMIENTO</button>
       <mat-menu #animals="matMenu">
-        <button mat-menu-item [matMenuTriggerFor]="vertebrates">Empresa</button>
         <button mat-menu-item [matMenuTriggerFor]="invertebrates">Personas</button>
-        <button mat-menu-item [matMenuTriggerFor]="mas">Mas</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCategoria'">Categoria</button>
       </mat-menu>
 
-      <mat-menu #vertebrates="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionSucursal'">Sucursal</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionAlmacen'">Almacen</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionBodega'">Bodega</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionTaller'">Taller</button>
-
-
-      </mat-menu>
 
       <mat-menu #invertebrates="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionusuarios'"> Usuarios</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionClientes'">Clientes</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionProveedores'">Proveedores</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionusuarios'"> Usuarios</button>
       </mat-menu>
 
-
-
-      <mat-menu #mas="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCuentaPersona'">Cuentas Bancarias</button>
-
-      </mat-menu>
-
+    
 
       <button mat-button [matMenuTriggerFor]="articulo"> <mat-icon>dialpad</mat-icon><br>PRODUCTOS</button>
 
@@ -79,7 +64,8 @@
         <button mat-menu-item [routerLink]="'/panel/biblioteca/ingresarOrdenDeCompra'">Ingreso Compra</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionPagoOrdenCompra'">Pago Compra</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/inventarioBodega'">Inventario Bodega</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionTransferenciaArticulo'">Transferencia</button>
+        <button mat-menu-item
+          [routerLink]="'/panel/biblioteca/administracionTransferenciaArticulo'">Transferencia</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionBajaArticulo'">Baja Articulos</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionBajaArticulo'">Deudas</button>
       </mat-menu>
