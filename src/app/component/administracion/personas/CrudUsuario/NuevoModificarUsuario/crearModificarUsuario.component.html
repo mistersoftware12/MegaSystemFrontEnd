@@ -14,78 +14,86 @@
             <h4>DATOS DE USUARIO</h4>
 
 
-            <table>
+            <table [formGroup]="formGrupos">
                 <tr>
                     <td>
-                        <mat-form-field appearance="outline" >
+                        <mat-form-field appearance="outline">
                             <mat-label>Cédula</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="cedula">
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                       
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha Nacimiento</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="fecha">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancelar</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply  (click)="fechacontrol()">Guardar</button>
+                                  </mat-datepicker-actions>
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombres">
                         </mat-form-field>
                     </td>
 
                     <td>
                         <mat-form-field appearance="outline">
-                            <mat-label>Fecha Nacimiento</mat-label>
-                            <input matInput [matDatepicker]="picker">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <mat-form-field appearance="outline" >
-                            <mat-label>Nombre</mat-label>
-                            <input matInput>
-                        </mat-form-field>
-                    </td>
-
-                    <td>
-                        <mat-form-field appearance="outline" >
                             <mat-label>Apellido</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="apellidos">
                         </mat-form-field>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        <mat-form-field appearance="outline" >
+                        <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="email">
                         </mat-form-field>
                     </td>
 
                     <td>
-                        <mat-form-field appearance="outline" >
+                        <mat-form-field appearance="outline">
                             <mat-label>Clave</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="clave">
                         </mat-form-field>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        <mat-form-field appearance="outline" >
+                        <mat-form-field appearance="outline">
                             <mat-label>Télefono</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="telefono">
                         </mat-form-field>
                     </td>
 
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Seleccione Rol</mat-label>
-                            <mat-select >
-                                <mat-option *ngFor="let option of estadoIva"
-                                    [value]="option.id">{{option.nombres}}
-                                </mat-option>
+                            <mat-select formControlName="idRol">
+                                <mat-option [value]=2>Administrador</mat-option>
+                                <mat-option [value]=3>Empleado</mat-option>
+                                <mat-option [value]=4>Vendedor</mat-option>
+                                <mat-option [value]=5>Reporte</mat-option>
+
                             </mat-select>
                         </mat-form-field>
                     </td>
                 </tr>
 
-               
+
             </table>
 
         </div>
@@ -97,8 +105,13 @@
                     <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
 
                     <button [disabled]="formGrupos.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
-                        color="primary" style="color: #FFFFFF;" class=".buttonguardar">
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
                         <mat-icon>save</mat-icon> REGISTRAR
+                    </button>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaActualizar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacionEditar()">
+                        <mat-icon>save</mat-icon> ACTUALIZAR
                     </button>
 
                     <button mat-raised-button mat-flat-button color="warn" class="buttonprincipales"

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { PersonaUsuario } from "../../models/personaUsuario";
-import { cedula, idEmpresa } from 'src/environments/environment';
+import { cedula, fechaActual, idEmpresa } from 'src/environments/environment';
 import { idRol } from 'src/environments/environment';
 import { idSucursal } from 'src/environments/environment';
 import { Title } from '@angular/platform-browser';
@@ -23,6 +23,7 @@ export class LayoutComponent implements OnInit {
     private titulo: Title) { titulo.setTitle('KADAPA FLORES & CHOCOLARES') }
 
   ngOnInit(): void {
+    this.capturafechaActual();
     try {
       JSON.parse(sessionStorage['personausuario']);
       if (JSON.parse(sessionStorage['personausuario']) == '') {
@@ -64,6 +65,26 @@ export class LayoutComponent implements OnInit {
     sessionStorage.setItem('personausuario', JSON.stringify(""));
     this.router.navigate(['auth/iniciosesion']).then(() => {
     });
+  }
+
+  public capturafechaActual() {
+
+    const fecha = new Date();
+    const añoActual = fecha.getFullYear();
+    var hoy2: String = String(fecha.getDate());
+    var mesActual: String = String(fecha.getMonth() + 1);
+
+    if (hoy2.length == 1) {
+      hoy2 = "0" + hoy2;
+    }
+
+    if (mesActual.length == 1) {
+      mesActual = "0" + mesActual;
+    }
+    fechaActual.setFechaActual = String(añoActual + "-" + mesActual + "-" + hoy2);
+
+    console.info(fechaActual.getFechaActual);
+          
   }
 
 }

@@ -1,19 +1,15 @@
 export class Usuario {
   id?: any
+  idPersona?:any;
   cedula?: any
   apellidos?: any
   nombres?: any
   email?: any
   telefono?: any
+  fechaNacimiento?: any
+  idEmpresa?: any
   clave?: any
-  fechaNacimiento?: any;
-  direccion?: any
   idRol?: any
-  nombrerol?: any
-  idSucursal?: any
-  nombreSucursal?: any
-
-
 }
 
 export class Proveedor {
@@ -32,13 +28,13 @@ export class Proveedor {
   numeroCuenta?: any
   telefono?: any
   estadolista?: any
-  nombreComercial?:any
+  nombreComercial?: any
 }
 
-export class Destinatario{
+export class Destinatario {
   id?: any
   telefono?: any
   apellidos?: any
   nombres?: any
-  direccion?:any
+  direccion?: any
 }

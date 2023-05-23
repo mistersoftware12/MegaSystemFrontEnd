@@ -79,6 +79,19 @@ export const idEmpresa = {
 }
 
 
+export const fechaActual = {
+  
+  fechaActual:'0',
+
+  get getFechaActual() {
+      return this.fechaActual;
+  },
+
+  set setFechaActual(newFecha) {
+      this.fechaActual = newFecha;
+  }
+  
+}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

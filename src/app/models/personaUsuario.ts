@@ -11,7 +11,7 @@ export class PersonaUsuario {
   rol:String
   nombreRol:String
   nombreSucursal:String
-
+  idUsuario?:any;
   idSucursal:Number;
   idEmpresa:Number;
 }

@@ -21,17 +21,6 @@ export class UsuarioService {
   constructor(private http: HttpClient) {
   }
 
-
-  saveUsuario(personaRequest: ɵTypedOrUntyped<{ apellidos: FormControl<String | null>; clave: FormControl<String | null>; idRol: FormControl<String | null>; cedula: FormControl<String | null>; telefono: FormControl<String | null>; email: FormControl<String | null>; nombres: FormControl<String | null> }, ɵFormGroupRawValue<{ apellidos: FormControl<String | null>; clave: FormControl<String | null>; idRol: FormControl<Number | null>; cedula: FormControl<String | null>; telefono: FormControl<String | null>; email: FormControl<String | null>; nombres: FormControl<String | null> }>, any>): Observable<PersonaUsuario> {
-    console.log(personaRequest)
-    return this.http.post<PersonaUsuario>(this.urlEndPoint + "/persona/registroUsuario", personaRequest, { headers: this.httpHeaders })
-  }
-
-  updateUsuario(personaRequest: ɵTypedOrUntyped<{ apellidos: FormControl<String | null>; clave: FormControl<String | null>; idRol: FormControl<Number | null>; cedula: FormControl<String | null>; id: FormControl<Number | null>; telefono: FormControl<String | null>; email: FormControl<String | null>; nombres: FormControl<String | null> }, ɵFormGroupRawValue<{ apellidos: FormControl<String | null>; clave: FormControl<String | null>; idRol: FormControl<Number | null>; cedula: FormControl<String | null>; id: FormControl<Number | null>; telefono: FormControl<String | null>; email: FormControl<String | null>; nombres: FormControl<String | null> }>, any>): Observable<PersonaUsuario> {
-    console.log(personaRequest)
-    return this.http.put<PersonaUsuario>(this.urlEndPoint + "/persona/updateUsuario", personaRequest, { headers: this.httpHeaders })
-  }
-
   getAllUsuarios(idEmpresa:any): Observable<PersonaUsuario[]> {
     return this.http.get(this.urlEndPoint + "/persona/allUsuarios/"+idEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as PersonaUsuario[]))
   }
@@ -40,12 +29,16 @@ export class UsuarioService {
   /////////////////////////////////
 
   createUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post(environment.URL_APP + "/persona/registroUsuario", usuario, { headers: this.httpHeaders })
+    return this.http.post(environment.URL_APP + "/persona/registrarUsuario", usuario, { headers: this.httpHeaders })
   }
 
-  putUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.put(environment.URL_APP + "/persona/updateUsuario", usuario, {headers: this.httpHeaders})
-  }
- 
+  putUsuario(info: Usuario): Observable<Usuario> {
+    return this.http.put(environment.URL_APP + "/persona/updateUsuario", info, { headers: this.httpHeaders })
+}
+
+
+  getUsuarioId(id: any): Observable<Usuario> {
+    return this.http.get(environment.URL_APP + "/persona/usuario/" + id, { headers: this.httpHeaders }).pipe(map(Response => Response as Usuario))
+}
   
 }

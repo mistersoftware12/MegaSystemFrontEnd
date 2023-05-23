@@ -68,3 +68,17 @@ export const idEmpresa = {
     this.idEmpresa = newIdEmpresa;
   }
 }
+
+export const fechaActual = {
+  
+  fechaActual:'0',
+
+  get getFechaActual() {
+      return this.fechaActual;
+  },
+
+  set setFechaActual(newFecha) {
+      this.fechaActual = newFecha;
+  }
+  
+}
