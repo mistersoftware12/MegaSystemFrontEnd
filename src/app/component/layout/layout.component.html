@@ -8,7 +8,7 @@
       <button mat-button [matMenuTriggerFor]="animals"> <mat-icon>settings</mat-icon><br>MANTENIMIENTO</button>
       <mat-menu #animals="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="invertebrates">Personas</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCategoria'">Categoria</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracioncategoria'">Categoria</button>
       </mat-menu>
 
 
@@ -18,23 +18,21 @@
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionusuarios'"> Usuarios</button>
       </mat-menu>
 
-    
+
 
       <button mat-button [matMenuTriggerFor]="articulo"> <mat-icon>dialpad</mat-icon><br>PRODUCTOS</button>
 
       <mat-menu #articulo="matMenu">
 
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCategoria'">Categoria</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCatalogo'">Catálogo</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionArticulo'">Articulos</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionServicio'">Servicios</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionProducto'">Mis Productos</button>
+        <button mat-menu-item [matMenuTriggerFor]="transpo">Concurrencia</button>
 
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCatalogoDigital'">Cátalogo Digítal</button>
-        <button mat-menu-item [matMenuTriggerFor]="transpo">Transporte</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionServicio'">Stock Rojo</button>
       </mat-menu>
 
       <mat-menu #transpo="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionTransporte'">Mis Transporte</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionTransporte'">Entradas</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionTransporte'">Bajas</button>
       </mat-menu>
 
 
@@ -50,8 +48,7 @@
 
 
       <mat-menu #catalogodigital="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCatalogoDigital'">Cátalogo Digital</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCatalogoPedidos'">Pedidos </button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCatalogoDigital'">Mis Servicios</button>
       </mat-menu>
 
 
@@ -59,15 +56,8 @@
 
 
       <mat-menu #ordenCompra="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionOrdenCompra'">Orden Compra</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionOrdenRecibo'">Orden Recibo</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/ingresarOrdenDeCompra'">Ingreso Compra</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionPagoOrdenCompra'">Pago Compra</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/inventarioBodega'">Inventario Bodega</button>
-        <button mat-menu-item
-          [routerLink]="'/panel/biblioteca/administracionTransferenciaArticulo'">Transferencia</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionBajaArticulo'">Baja Articulos</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionBajaArticulo'">Deudas</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionOrdenCompra'">Nueva Venta</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionOrdenRecibo'">Mis Ventas</button>
       </mat-menu>
 
 

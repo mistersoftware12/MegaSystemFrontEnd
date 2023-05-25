@@ -1,0 +1,65 @@
+<section>
+    <br>
+    <mat-card class="example-card" style="background: #F2F1E9">
+        <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+        <div style="overflow-x:auto; ">
+            <mat-progress-bar *ngIf="loaderCargaDatos" mode="indeterminate"></mat-progress-bar>
+            <div>
+                <div class="opcion1fd">
+                    <h3> <strong>CATEGORÍA</strong></h3>
+                </div>
+            </div>
+
+            <h4>DATOS DE CATEGORÍA</h4>
+
+
+            <table [formGroup]="formGrupos">
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombre">
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+
+                       
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div>
+            <div>
+                <div class="opcion1fd">
+                    <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
+                        <mat-icon>save</mat-icon> REGISTRAR
+                    </button>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaActualizar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar"
+                        (click)="guardarInformacionEditar()">
+                        <mat-icon>save</mat-icon> ACTUALIZAR
+                    </button>
+
+                    <button mat-raised-button mat-flat-button color="warn" class="buttonprincipales"
+                        (click)="botonCancelarRegistro()" class="buttonguardar">
+                        <mat-icon>close</mat-icon> CANCELAR
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </mat-card>
+</section>
+
+
+<br>

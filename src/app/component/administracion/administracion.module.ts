@@ -12,6 +12,10 @@ import { ListarClienteComponent } from './personas/CrudCliente/Listar-Cliente/li
 import { CrearModificarClienteComponent } from './personas/CrudCliente/Nuevo-Modificar-Cliente/crearModificarCliente.component';
 import { ListarProveedorComponent } from './personas/CrudProveedor/Listar-Proveedor/listar-proveedor.component';
 import { CrearModificarProveedorComponent } from './personas/CrudProveedor/Nuevo-Modificar-Proveedor/crearModificarProveedor.component';
+import { ListarCategoriaComponent } from './categoria/Listar-Categoria/listar-categoria.component';
+import { CrearModificarCategoriaComponent } from './categoria/Nuevo-Modificar-Categoria/crearModificarCategoria.component';
+import { ListarProductoComponent } from './producto/Listar-Producto/listar-producto.component';
+import { CrearModificarProductoComponent } from './producto/Nuevo-Modificar-Producto/crearModificarProducto.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -54,7 +58,25 @@ const routes: Routes = [
     component: CrearModificarProveedorComponent
   },
 
+  {
+    path: 'administracioncategoria',
+    component: ListarCategoriaComponent
+  },
+  
+  {
+    path: 'creaModificarCategoria',
+    component: CrearModificarCategoriaComponent
+  },
 
+  {
+    path: 'administracionProducto',
+    component: ListarProductoComponent
+  },
+  
+  {
+    path: 'creaModificarProducto',
+    component: CrearModificarProductoComponent
+  },
 
 ]
 
@@ -71,6 +93,11 @@ const routes: Routes = [
     ListarProveedorComponent,
     CrearModificarProveedorComponent,
 
+    ListarCategoriaComponent,
+    CrearModificarCategoriaComponent,
+
+    ListarProductoComponent,
+    CrearModificarProductoComponent,
   ],
   imports: [
     CommonModule,

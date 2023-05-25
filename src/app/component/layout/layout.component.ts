@@ -20,7 +20,7 @@ export class LayoutComponent implements OnInit {
 
   constructor(private router: Router,
     private _snackBar: MatSnackBar,
-    private titulo: Title) { titulo.setTitle('KADAPA FLORES & CHOCOLARES') }
+    private titulo: Title) { titulo.setTitle('MEGA SYSTEM') }
 
   ngOnInit(): void {
     this.capturafechaActual();
