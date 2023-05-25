@@ -16,6 +16,7 @@ import { Sucursal } from 'src/app/models/sucursal';
 import { cedula, idUniversal } from 'src/environments/environment';
 import { idEmpresa } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { ProductoService } from 'src/app/services/producto.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class ListarProductoComponent implements OnInit {
 
   public UsuarioLista: Usuario[] = [];
 
-  displayedColumns: string[] = ['id', 'cedula', 'nombre',   'telefono',  'correo', 'documento'];
+  displayedColumns: string[] = ['id', 'cedula', 'nombre', 'telefono', 'correo', 'documento'];
   dataSource: MatTableDataSource<Cliente>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,6 +39,7 @@ export class ListarProductoComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
+    private productoService: ProductoService,
     private router: Router,
   ) {
 
@@ -52,17 +54,26 @@ export class ListarProductoComponent implements OnInit {
     this.router.navigate(['/panel/biblioteca/creaModificarProducto']);
   }
 
+  public mostrarNuevoIngreso(id: any) {
+   idUniversal.setIdUniversal = id;
+    this.router.navigate(['/panel/biblioteca/creaModificarIngresoProducto']);
+  }
+
+  public mostrarNuevoBaja(id: any) {
+    idUniversal.setIdUniversal = id;
+    this.router.navigate(['/panel/biblioteca/creaModificarBajaProducto']);
+  }
 
   //LISTAR
 
   public listarInformacion() {
     this.loaderActualizar = true;
-    this.usuarioService.getAlProveedor(idEmpresa.getIdEmpresa).subscribe(value => {
+    this.productoService.getAlProdducto(idEmpresa.getIdEmpresa).subscribe(value => {
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.loaderActualizar = false;
-      
+
     })
 
 
@@ -94,7 +105,7 @@ export class ListarProductoComponent implements OnInit {
     const book: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
-    XLSX.writeFile(book, 'Lista de Proveedores.xlsx');
+    XLSX.writeFile(book, 'Lista de Productos.xlsx');
   }
 
 
@@ -163,9 +174,9 @@ export class ListarProductoComponent implements OnInit {
             {
               table: {
                 headerRows: 1,
-                widths: ['7%', '10%', '19%', '19%', '11%',  '23%', '10%'],
+                widths: ['7%', '10%', '19%', '19%', '11%', '23%', '10%'],
                 body: [
-                  ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'ROL',  'CORREO', 'TELEFONO'],
+                  ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'ROL', 'CORREO', 'TELEFONO'],
                   [value.map(function (item) {
                     return { text: item.id + '', fontSize: 11 }
                   }),
@@ -181,7 +192,7 @@ export class ListarProductoComponent implements OnInit {
                   value.map(function (item) {
                     return { text: item.nombreRol + '', fontSize: 11 }
                   }),
-                 
+
                   value.map(function (item) {
                     return { text: item.email + '', fontSize: 11 }
                   }),

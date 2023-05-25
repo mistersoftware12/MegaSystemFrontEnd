@@ -153,28 +153,3 @@ th {
   margin-left: 1vh;
   margin-right: 1vh;
 }
-
-.tablastyle {
-  border-collapse: collapse;
-
-  border: #060606 2px solid;
-  overflow: hidden;
-
-
-}
-
-.tablastyle1 {
-  border-collapse: collapse;
-  background-color: #0887e2;
-  color: #1a1a1a;
-  border: #060606 2px solid;
-  overflow: hidden;
-  font-size: 16px;
-  height: 10px;
-
-}
-
-.inputselect {
-  background-color: #f2f1e9;
-  font-size: 18px;
-}

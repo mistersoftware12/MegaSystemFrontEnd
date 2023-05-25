@@ -19,7 +19,7 @@
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Nombre</mat-label>
-                            <input matInput formControlName="propietario">
+                            <input matInput formControlName="nombre">
                         </mat-form-field>
                     </td>
 
@@ -27,17 +27,16 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Código Barra</mat-label>
-                            <input matInput formControlName="comercial">
+                            <input matInput formControlName="codigobarra">
                         </mat-form-field>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        <mat-form-field appearance="outline" class="margeninput">
+                        <mat-form-field appearance="outline">
                             <mat-label>Seleccione Categoría</mat-label>
-                            <mat-select formControlName="comercial"
-                                >
+                            <mat-select formControlName="categoria">
                                 <mat-option *ngFor="let option2 of categoriaLista"
                                     [value]="option2.id">{{option2.nombre}}
                                 </mat-option>
@@ -47,10 +46,9 @@
 
                     <td>
 
-                        <mat-form-field appearance="outline" class="margeninput">
+                        <mat-form-field appearance="outline">
                             <mat-label>Seleccione Proveedor</mat-label>
-                            <mat-select formControlName="comercial"
-                                >
+                            <mat-select formControlName="proveedor">
                                 <mat-option *ngFor="let option2 of proveedorLista"
                                     [value]="option2.id">{{option2.propietario}}
                                 </mat-option>
@@ -63,7 +61,8 @@
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Precio Compra</mat-label>
-                            <input matInput formControlName="email">
+                            <input matInput formControlName="preciocompra"  required
+                            pattern="^[0-9]{0,12}([.][0-9]{2,2})?$">
                         </mat-form-field>
                     </td>
 
@@ -71,16 +70,96 @@
 
                         <mat-form-field appearance="outline">
                             <mat-label>Stock Inicial</mat-label>
-                            <input matInput formControlName="telefono">
+                            <input matInput formControlName="stock" required
+                            pattern="^[0-9]{0,12}([.][0-9]{2,2})?$">
                         </mat-form-field>
 
                     </td>
                 </tr>
 
-              
-
             </table>
 
+            <form [formGroup]="formGrupoPrecio">
+
+                <table class="tablastyle">
+                    <thead>
+                        <tr class="tablastyle">
+                            <th class="tablastyle1">
+
+                                <table class="default">
+                                    <tr>
+                                        <td>PRECIO ($)</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>COMPRA</td>
+                                    </tr>
+
+                                </table>
+
+                            </th>
+                            <th class="tablastyle1">
+                                <table class="default">
+                                    <tr>
+                                        <td>IVA</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>(%)</td>
+                                    </tr>
+
+                                </table>
+                            </th>
+
+                            <th class="tablastyle1">
+
+                                <table class="default">
+                                    <tr>
+                                        <td>PRECIO ($)</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>VENTA</td>
+                                    </tr>
+
+                                </table>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr style="text-align: center;">
+                            <th class="tablastyle"><input class="inputstyle" style=" font-size: 19px; width: 50px;"
+                                    type="text" formControlName="preciocosto"  required
+                                    pattern="^[0-9]{0,12}([.][0-9]{2,2})?$"></th>
+
+
+                            <td class="tablastyle">
+
+                                <select formControlName="iva" class="inputselect">
+                                    <option value="0">0%</option>
+                                    <option value="12">12%</option>
+                                </select>
+                            </td>
+
+
+
+                            <td class="tablastyle" >
+                                <input  class="inputstyle" style=" font-size: 19px; width: 50px;"
+                                 type="text" formControlName="preciofinal"  required
+                                 pattern="^[0-9]{0,12}([.][0-9]{2,2})?$">
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </form>
+
+            <br>
         </div>
 
 

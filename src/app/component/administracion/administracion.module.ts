@@ -16,6 +16,8 @@ import { ListarCategoriaComponent } from './categoria/Listar-Categoria/listar-ca
 import { CrearModificarCategoriaComponent } from './categoria/Nuevo-Modificar-Categoria/crearModificarCategoria.component';
 import { ListarProductoComponent } from './producto/Listar-Producto/listar-producto.component';
 import { CrearModificarProductoComponent } from './producto/Nuevo-Modificar-Producto/crearModificarProducto.component';
+import { CrearModificarIngresoProductoComponent } from './producto/Nuevo-Modificar-Ingreso/crearModificarIngresoProducto.component';
+import { CrearModificarBajaProductoComponent } from './producto/Nuevo-Modificar-Baja/crearModificarBajaProducto.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -78,6 +80,16 @@ const routes: Routes = [
     component: CrearModificarProductoComponent
   },
 
+  {
+    path: 'creaModificarIngresoProducto',
+    component: CrearModificarIngresoProductoComponent
+  },
+
+  {
+    path: 'creaModificarBajaProducto',
+    component: CrearModificarBajaProductoComponent
+  },
+
 ]
 
 @NgModule({
@@ -98,6 +110,9 @@ const routes: Routes = [
 
     ListarProductoComponent,
     CrearModificarProductoComponent,
+
+    CrearModificarIngresoProductoComponent,
+    CrearModificarBajaProductoComponent,
   ],
   imports: [
     CommonModule,
