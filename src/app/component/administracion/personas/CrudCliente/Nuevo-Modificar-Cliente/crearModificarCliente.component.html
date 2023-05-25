@@ -1,0 +1,112 @@
+<section>
+    <br>
+    <mat-card class="example-card" style="background: #F2F1E9">
+        <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+        <div style="overflow-x:auto; ">
+            <mat-progress-bar *ngIf="loaderCargaDatos" mode="indeterminate"></mat-progress-bar>
+            <div>
+                <div class="opcion1fd">
+                    <h3> <strong>CLIENTE</strong></h3>
+                </div>
+            </div>
+
+            <h4>DATOS DE CLIENTE</h4>
+
+
+            <table [formGroup]="formGrupos">
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cédula</mat-label>
+                            <input matInput formControlName="cedula">
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha Nacimiento</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="fecha">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancelar</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply
+                                        (click)="fechacontrol()">Guardar</button>
+                                </mat-datepicker-actions>
+                            </mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="nombres">
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Apellido</mat-label>
+                            <input matInput formControlName="apellidos">
+                        </mat-form-field>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Télefono</mat-label>
+                            <input matInput formControlName="telefono">
+                        </mat-form-field>
+
+                    </td>
+                </tr>
+
+              
+
+            </table>
+
+        </div>
+
+
+        <div>
+            <div>
+                <div class="opcion1fd">
+                    <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
+                        <mat-icon>save</mat-icon> REGISTRAR
+                    </button>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaActualizar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar"
+                        (click)="guardarInformacionEditar()">
+                        <mat-icon>save</mat-icon> ACTUALIZAR
+                    </button>
+
+                    <button mat-raised-button mat-flat-button color="warn" class="buttonprincipales"
+                        (click)="botonCancelarRegistro()" class="buttonguardar">
+                        <mat-icon>close</mat-icon> CANCELAR
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </mat-card>
+</section>
+
+
+<br>

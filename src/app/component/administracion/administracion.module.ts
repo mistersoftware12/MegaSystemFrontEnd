@@ -6,9 +6,12 @@ import { RouterModule, Routes } from "@angular/router";
 import { ReactiveFormsModule } from "@angular/forms";
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from "@angular/common";
-import { CrudClientesComponent } from './personas/CrudClientes/crud-clientes.component';
 import { CrudUsuariosComponent } from './personas/CrudUsuario/crud-usuario.component';
 import { CrearModificarUsuarioComponent } from './personas/CrudUsuario/NuevoModificarUsuario/crearModificarUsuario.component';
+import { ListarClienteComponent } from './personas/CrudCliente/Listar-Cliente/listar-cliente.component';
+import { CrearModificarClienteComponent } from './personas/CrudCliente/Nuevo-Modificar-Cliente/crearModificarCliente.component';
+import { ListarProveedorComponent } from './personas/CrudProveedor/Listar-Proveedor/listar-proveedor.component';
+import { CrearModificarProveedorComponent } from './personas/CrudProveedor/Nuevo-Modificar-Proveedor/crearModificarProveedor.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -25,15 +28,30 @@ const routes: Routes = [
     component: CrudUsuariosComponent
   },
   
-
-  {
-    path: 'administracionClientes',
-    component: CrudClientesComponent
-  },
-
   {
     path: 'creaModificaUsuario',
     component: CrearModificarUsuarioComponent
+  },
+
+
+  {
+    path: 'administracionclientes',
+    component: ListarClienteComponent
+  },
+  
+  {
+    path: 'creaModificarCliente',
+    component: CrearModificarClienteComponent
+  },
+
+  {
+    path: 'administracionproveedor',
+    component: ListarProveedorComponent
+  },
+  
+  {
+    path: 'creaModificarProveedor',
+    component: CrearModificarProveedorComponent
   },
 
 
@@ -43,11 +61,15 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     BienvenidaComponent,
-    CrudClientesComponent,
-
+    
     CrudUsuariosComponent,
     CrearModificarUsuarioComponent,
 
+    ListarClienteComponent,
+    CrearModificarClienteComponent,
+
+    ListarProveedorComponent,
+    CrearModificarProveedorComponent,
 
   ],
   imports: [

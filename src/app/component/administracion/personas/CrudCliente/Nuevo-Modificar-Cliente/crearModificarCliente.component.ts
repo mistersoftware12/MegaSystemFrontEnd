@@ -19,14 +19,14 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 @Component({
-  selector: 'app-crearModificarUsuario.component',
-  templateUrl: './crearModificarUsuario.component.html',
-  styleUrls: ['./crearModificarUsuario.component.css'],
+  selector: 'app-crearModificarCliente.component',
+  templateUrl: './crearModificarCliente.component.html',
+  styleUrls: ['./crearModificarCliente.component.css'],
 
 
 })
 
-export class CrearModificarUsuarioComponent implements OnInit {
+export class CrearModificarClienteComponent implements OnInit {
 
 
   public botonParaGuardar: Boolean = false;
@@ -49,10 +49,7 @@ export class CrearModificarUsuarioComponent implements OnInit {
     nombres: new FormControl<String>('', [Validators.required, Validators.pattern(/^[a-z\s\u00E0-\u00FC\u00f1]*$/i)]),
     apellidos: new FormControl<String>(null, [Validators.required, Validators.pattern(/^[a-z\s\u00E0-\u00FC\u00f1]*$/i)]),
     email: new FormControl<String>('', [Validators.required, Validators.email]),
-    clave: new FormControl<String>('', [Validators.required]),
     telefono: new FormControl<String>('', [Validators.required, Validators.pattern("[0-9]+")]),
-    idRol: new FormControl<Number>(null, [Validators.required]),
-
   })
 
 
@@ -82,15 +79,14 @@ export class CrearModificarUsuarioComponent implements OnInit {
 
       this.loaderCargaDatos = true;
 
-      console.info(idUniversal.getIdUniversal)
-      
-      this.usuarioService.getUsuarioId(idUniversal.getIdUniversal).subscribe(value => {
 
-        console.info(value
-          )
+
+      this.usuarioService.getClienteId(idUniversal.getIdUniversal).subscribe(value => {
+
+
         this.UsuarioListaGuardar.id = value.id;
         this.UsuarioListaGuardar.idPersona = value.idPersona;
-        
+
 
         this.fechaNacimiento = value.fechaNacimiento;
         var fecha = new Date(value.fechaNacimiento);
@@ -105,9 +101,7 @@ export class CrearModificarUsuarioComponent implements OnInit {
           nombres: value.nombres,
           apellidos: value.apellidos,
           email: value.email,
-          clave: '',
           telefono: value.telefono,
-          idRol: value.idRol,
         })
 
         this.loaderCargaDatos = false;
@@ -122,7 +116,7 @@ export class CrearModificarUsuarioComponent implements OnInit {
 
 
   public botonCancelarRegistro() {
-    this.router.navigate(['/panel/biblioteca/administracionusuarios']);
+    this.router.navigate(['/panel/biblioteca/administracionclientes']);
     idUniversal.setIdUniversal = 0;
   }
 
@@ -138,15 +132,12 @@ export class CrearModificarUsuarioComponent implements OnInit {
     this.UsuarioListaGuardar.nombres = Object.values(this.formGrupos.getRawValue())[2];
     this.UsuarioListaGuardar.apellidos = Object.values(this.formGrupos.getRawValue())[3];
     this.UsuarioListaGuardar.email = Object.values(this.formGrupos.getRawValue())[4];
-    this.UsuarioListaGuardar.clave = Object.values(this.formGrupos.getRawValue())[5];
-    this.UsuarioListaGuardar.telefono = Object.values(this.formGrupos.getRawValue())[6];
-    this.UsuarioListaGuardar.idRol = Object.values(this.formGrupos.getRawValue())[7];
+    this.UsuarioListaGuardar.telefono = Object.values(this.formGrupos.getRawValue())[5];
     this.UsuarioListaGuardar.idEmpresa = idEmpresa.getIdEmpresa;
 
 
-    console.info(this.UsuarioListaGuardar)
-    this.usuarioService.createUsuario(this.UsuarioListaGuardar).subscribe(value => {
-      this._snackBar.open('Usuario registrado', 'ACEPTAR');
+    this.usuarioService.createCliente(this.UsuarioListaGuardar).subscribe(value => {
+      this._snackBar.open('Cliente registrado', 'ACEPTAR');
       this.vaciarFormulario();
       this.botonCancelarRegistro();
       this.loaderActualizar = false;
@@ -167,21 +158,18 @@ export class CrearModificarUsuarioComponent implements OnInit {
 
     if (this.controlFecha == true) {
       this.UsuarioListaGuardar.fechaNacimiento = Object.values(this.formGrupos.getRawValue())[1];
-    } 
+    }
 
     this.UsuarioListaGuardar.nombres = Object.values(this.formGrupos.getRawValue())[2];
     this.UsuarioListaGuardar.apellidos = Object.values(this.formGrupos.getRawValue())[3];
     this.UsuarioListaGuardar.email = Object.values(this.formGrupos.getRawValue())[4];
-    this.UsuarioListaGuardar.clave = Object.values(this.formGrupos.getRawValue())[5];
-    this.UsuarioListaGuardar.telefono = Object.values(this.formGrupos.getRawValue())[6];
-    this.UsuarioListaGuardar.idRol = Object.values(this.formGrupos.getRawValue())[7];
+    this.UsuarioListaGuardar.telefono = Object.values(this.formGrupos.getRawValue())[5];
     this.UsuarioListaGuardar.idEmpresa = idEmpresa.getIdEmpresa;
 
 
-    console.info(this.UsuarioListaGuardar)
 
-    this.usuarioService.putUsuario(this.UsuarioListaGuardar).subscribe(value => {
-      this._snackBar.open('Usuario actualizado', 'ACEPTAR');
+    this.usuarioService.putCliente(this.UsuarioListaGuardar).subscribe(value => {
+      this._snackBar.open('Cliente actualizado', 'ACEPTAR');
       this.vaciarFormulario();
       this.botonCancelarRegistro();
       this.loaderActualizar = false;

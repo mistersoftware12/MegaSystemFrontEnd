@@ -19,18 +19,18 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-crud-usurio',
-  templateUrl: './crud-usuario.component.html',
-  styleUrls: ['./crud-usuario.component.css'],
+  selector: 'app-listar-cliente.component',
+  templateUrl: './listar-cliente.component.html',
+  styleUrls: ['./listar-cliente.component.css'],
 })
 
-export class CrudUsuariosComponent implements OnInit {
+export class ListarClienteComponent implements OnInit {
 
   loaderActualizar: boolean;
 
   public UsuarioLista: Usuario[] = [];
 
-  displayedColumns: string[] = ['id', 'cedula', 'nombre', 'apellidos', 'rol', 'telefono', 'nacimiento', 'correo', 'documento'];
+  displayedColumns: string[] = ['id', 'cedula', 'nombre', 'apellidos',  'telefono', 'nacimiento', 'correo', 'documento'];
   dataSource: MatTableDataSource<Cliente>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,7 +49,7 @@ export class CrudUsuariosComponent implements OnInit {
   }
 
   public mostrarNuevo() {
-    this.router.navigate(['/panel/biblioteca/creaModificaUsuario']);
+    this.router.navigate(['/panel/biblioteca/creaModificarCliente']);
   }
 
 
@@ -57,7 +57,7 @@ export class CrudUsuariosComponent implements OnInit {
 
   public listarInformacion() {
     this.loaderActualizar = true;
-    this.usuarioService.getAllUsuarios(idEmpresa.getIdEmpresa).subscribe(value => {
+    this.usuarioService.getAlClientes(idEmpresa.getIdEmpresa).subscribe(value => {
       this.UsuarioLista = value;
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
@@ -82,7 +82,8 @@ export class CrudUsuariosComponent implements OnInit {
 
   editarInformacion(id: any) {
     idUniversal.setIdUniversal = id;
-    this.router.navigate(['/panel/biblioteca/creaModificaUsuario']);
+
+    this.router.navigate(['/panel/biblioteca/creaModificarCliente']);
   }
 
   //Exportaciones de documento
@@ -93,7 +94,7 @@ export class CrudUsuariosComponent implements OnInit {
     const book: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
-    XLSX.writeFile(book, 'Lista de Usuarios.xlsx');
+    XLSX.writeFile(book, 'Lista de Clientes.xlsx');
   }
 
 
@@ -156,7 +157,7 @@ export class CrudUsuariosComponent implements OnInit {
             },
             // @ts-ignore
             { text: pipe.transform(dia, ' d  MMMM  y'), alignment: 'right' },
-            { text: 'USUARIOS REGISTRADOS', fontSize: 15, bold: true, alignment: 'center' },
+            { text: 'CLIENTES REGISTRADOS', fontSize: 15, bold: true, alignment: 'center' },
             //{ text: 'Usuarios registrados en la Empresa  ', fontSize: 15, margin: [0, 0, 20, 0] },
             { text: '    ' },
             {
