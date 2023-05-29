@@ -10,7 +10,7 @@ export class ProductoRequest {
     idEmpresa?: any;
     idCategoria?: any;
     idProveedor?: any;
-    fechaPrimeraCompra?:any;
+    fechaPrimeraCompra?: any;
 }
 
 export class ProductoResponse1 {
@@ -21,6 +21,8 @@ export class ProductoResponse1 {
     precioVenta?: any;
     nombreCategoria?: any;
     nombreProveedor?: any;
+
+    codigoBarra?: any;
 }
 
 export class ProductoResponse {
@@ -36,11 +38,22 @@ export class ProductoResponse {
     idProveedor?: any;
 }
 
-export class IngresoBajaProducto{
+export class IngresoBajaProducto {
     id?: any;
     cantidad?: any;
     precioCompra?: any;
     fechaRegistro?: any;
     idProducto?: any;
     observacion?: any;
+}
+
+
+export class ContenidoProduccion {
+    id?: any;
+    idProducto?: any;
+    idProduccion?: any;
+    nombre?: any;
+    cantidad?: any;
+    precioCompra?: any;
+    precioVenta?: any;
 }

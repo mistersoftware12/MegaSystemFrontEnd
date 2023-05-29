@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from "../../environments/environment";
+import { environment, idEmpresa } from "../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { FormControl, ɵFormGroupRawValue, ɵTypedOrUntyped } from "@angular/forms";
 import { map, Observable } from "rxjs";;
@@ -52,6 +52,10 @@ export class UsuarioService {
 
   getClienteId(id: any): Observable<Usuario> {
     return this.http.get(environment.URL_APP + "/persona/cliente/" + id, { headers: this.httpHeaders }).pipe(map(Response => Response as Usuario))
+  }
+
+  getClienteForCedula(cedula: any): Observable<Usuario> {
+    return this.http.get(environment.URL_APP + "/persona/clientepersona/" + cedula+"/"+idEmpresa.getIdEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as Usuario))
   }
 
   putCliente(info: Usuario): Observable<Usuario> {

@@ -14,8 +14,6 @@ import Swal from 'sweetalert2';
 
 
 import { idUniversal } from 'src/environments/environment';
-import { Proveedor, Usuario } from 'src/app/models/persona';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
 import { IngresoBajaProducto } from 'src/app/models/producto';

@@ -53,7 +53,7 @@ export class CrearModificarProductoComponent implements OnInit {
     categoria: new FormControl<any>('', [Validators.required]),
     proveedor: new FormControl<String>('', [Validators.required, Validators.pattern("[0-9]+")]),
     preciocompra: new FormControl<String>('', [Validators.required]),
-    stock: new FormControl<String>('', [Validators.required ]),
+    stock: new FormControl<String>('', [Validators.required]),
   })
 
   formGrupoPrecio = new FormGroup({
@@ -62,8 +62,6 @@ export class CrearModificarProductoComponent implements OnInit {
     preciofinal: new FormControl<String>('', [Validators.required]),
   })
 
-  public UsuarioListaGuardar: Usuario = new Usuario();
-  public ProveedorListaGuardar: Proveedor = new Proveedor();
 
   public proveedorLista: Proveedor[] = [];
   public categoriaLista: Categoria[] = [];
@@ -79,6 +77,7 @@ export class CrearModificarProductoComponent implements OnInit {
     private categoriaService: CategoriaService,
     private productoService: ProductoService,
   ) {
+
   }
 
   ngOnInit(): void {
@@ -87,8 +86,9 @@ export class CrearModificarProductoComponent implements OnInit {
     this.controlInicio();
 
   }
-  public fechaNacimiento: any;
+
   public controlFecha: Boolean = false;
+  public controlStock:Boolean = false;
 
   public controlInicio() {
 
@@ -96,11 +96,12 @@ export class CrearModificarProductoComponent implements OnInit {
       this.botonParaGuardar = true;
       this.botonParaActualizar = false;
       this.vaciarFormulario();
+      this.controlStock = true;
 
     } else {
 
       this.loaderCargaDatos = true;
-
+      this.controlStock = false;
 
       this.productoService.getProductoId(idUniversal.getIdUniversal).subscribe(value => {
 
@@ -109,15 +110,15 @@ export class CrearModificarProductoComponent implements OnInit {
 
         this.formGrupos.setValue({
           nombre: value.nombre,
-          codigobarra: value.codigoBarra ,
+          codigobarra: value.codigoBarra,
           categoria: value.idCategoria,
           proveedor: value.idProveedor,
-          preciocompra:value.precioCompra,
-          stock:value.stock,
+          preciocompra: value.precioCompra.toFixed(2),
+          stock: value.stock,
         })
 
         this.formGrupoPrecio.setValue({
-          preciocosto: value.precioCompra.toFixed(2) ,
+          preciocosto: value.precioCompra.toFixed(2),
           iva: value.iva,
           preciofinal: value.precioVenta.toFixed(2),
         })
@@ -249,7 +250,7 @@ export class CrearModificarProductoComponent implements OnInit {
     this.productoListaGuardar.iva = Object.values(this.formGrupoPrecio.getRawValue())[1];
     this.productoListaGuardar.precioVenta = Object.values(this.formGrupoPrecio.getRawValue())[2];
 
-    
+
     this.productoService.putProducto(this.productoListaGuardar).subscribe(value => {
       this._snackBar.open('Producto actualizado', 'ACEPTAR');
       this.vaciarFormulario();

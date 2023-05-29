@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from "../../environments/environment";
+import { environment, idEmpresa } from "../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, Observable } from "rxjs";;
 import { ProductoRequest, ProductoResponse, ProductoResponse1 } from '../models/producto';
@@ -34,6 +34,10 @@ export class ProductoService {
 
   getProductoId(id: any): Observable<ProductoResponse> {
     return this.http.get(environment.URL_APP + "/producto/producto/" + id, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse))
+  }
+
+  getProductoCodigoBarra(codigoBarra: any): Observable<ProductoResponse> {
+    return this.http.get(environment.URL_APP + "/producto/productoCodigo/" + idEmpresa.getIdEmpresa + "/" + codigoBarra, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse))
   }
 
   putProducto(info: ProductoRequest): Observable<ProductoRequest> {

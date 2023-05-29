@@ -23,16 +23,8 @@
       <button mat-button [matMenuTriggerFor]="articulo"> <mat-icon>dialpad</mat-icon><br>PRODUCTOS</button>
 
       <mat-menu #articulo="matMenu">
-
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionProducto'">Mis Productos</button>
-        <button mat-menu-item [matMenuTriggerFor]="transpo">Concurrencia</button>
-
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionServicio'">Stock Rojo</button>
-      </mat-menu>
-
-      <mat-menu #transpo="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionTransporte'">Entradas</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionTransporte'">Bajas</button>
       </mat-menu>
 
 
@@ -40,7 +32,7 @@
 
 
       <mat-menu #produccion="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionProducto'">Mi Producción</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionProduccion'">Mi Producción</button>
       </mat-menu>
 
 
@@ -56,7 +48,7 @@
 
 
       <mat-menu #ordenCompra="matMenu">
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionOrdenCompra'">Nueva Venta</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/creaModificarVenta'">Nueva Venta</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionOrdenRecibo'">Mis Ventas</button>
       </mat-menu>
 
