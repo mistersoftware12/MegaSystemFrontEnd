@@ -2,7 +2,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { fechaActual, idEmpresa } from 'src/environments/environment';
+import { cedula, fechaActual, idEmpresa } from 'src/environments/environment';
 
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -12,17 +12,17 @@ import { MatTable } from '@angular/material/table';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
-
 import { idUniversal } from 'src/environments/environment';
-import { Proveedor, Usuario } from 'src/app/models/persona';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
-import { ContenidoProduccion, ProductoRequest, ProductoResponse1 } from 'src/app/models/producto';
+import { ContenidoProduccion, ProductoResponse1 } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { ProduccionRequest } from 'src/app/models/produccion';
 import { ProduccionService } from 'src/app/services/produccion.service';
-import { VentaRequest } from 'src/app/models/venta';
+import { TipoService } from 'src/app/services/tipo.service';
+import { InformacionBasica } from 'src/app/models/extras';
+import { VentaContenidoRequest, VentaEncabezadoRequest } from 'src/app/models/venta';
+import { VentaService } from 'src/app/services/venta.service';
 
 export interface PeriodicElement {
   id: any;
@@ -34,6 +34,8 @@ export interface PeriodicElement {
   precioUnitario: any;
   precioIva: any;
   precioTotal: any;
+  ganancia: any;
+
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -61,6 +63,7 @@ export class CrearModificarVentaComponent implements OnInit {
 
 
   public numeroControl: number = 1;
+  public idCliente: any;
 
   loaderActualizar: boolean;
   loaderActualizarCedula: boolean;
@@ -101,19 +104,25 @@ export class CrearModificarVentaComponent implements OnInit {
     codigopt: new FormControl<String>('',),
   })
 
+  formGrupoTipoPago = new FormGroup({
+    pago: new FormControl<Number>(1,),
+  })
 
   public categoriaLista: Categoria[] = [];
 
   public productoLista: ProductoResponse1[] = [];
   public produccionLista: ProduccionRequest[] = [];
-  public contenidoProduccionLista: ContenidoProduccion[] = [];
+  public tipoPagoLista: InformacionBasica[] = [];
+  public contenidoProduccionLista: VentaContenidoRequest[] = [];
 
-  public contenidoVentaLista: VentaRequest[] = [];
+  public contenidoVentaLista: VentaContenidoRequest[] = [];
 
   //aQUI
 
-  public produccionListaGuardar: ProduccionRequest = new ProduccionRequest();
   public contenidoProduccionListaGuardar: ContenidoProduccion = new ContenidoProduccion();
+
+  public ventaListaGuardar: VentaEncabezadoRequest = new VentaEncabezadoRequest();
+  public contenidoVentaListaGuardar: VentaContenidoRequest = new VentaContenidoRequest();
 
   displayedColumns1: string[] = ['codigo', 'tipo', 'descripcion', 'unitario', 'iva', 'cantidad', 'total', 'weight'];
   dataSource1 = [...ELEMENT_DATA];
@@ -123,17 +132,21 @@ export class CrearModificarVentaComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private router: Router,
     private usuarioService: UsuarioService,
-    private categoriaService: CategoriaService,
     private productoService: ProductoService,
     private produccionService: ProduccionService,
+    private tipoService: TipoService,
+    private ventaService: VentaService,
   ) {
 
   }
 
   ngOnInit(): void {
+    this.listarTipoPago();
     this.listarProductos();
     this.listarProduccion();
     this.controlInicio();
+
+
 
   }
 
@@ -233,6 +246,7 @@ export class CrearModificarVentaComponent implements OnInit {
 
     this.loaderActualizarCedula = true;
     this.usuarioService.getClienteForCedula(Object.values(this.formCliente.getRawValue())[0]).subscribe(value3 => {
+      this.idCliente = value3.id;
       this.formCliente.setValue({
         cedula: value3.cedula,
         nombre: value3.nombres + " " + value3.apellidos,
@@ -254,9 +268,14 @@ export class CrearModificarVentaComponent implements OnInit {
     this.productoService.getAlProdducto(idEmpresa.getIdEmpresa).subscribe(value3 => {
       this.productoLista = value3;
     })
-
-
   }
+
+  public listarTipoPago() {
+    this.tipoService.getAllTipoPago().subscribe(value3 => {
+      this.tipoPagoLista = value3;
+    })
+  }
+
 
   public listarProduccion() {
     this.produccionService.getAlProdducto(idEmpresa.getIdEmpresa).subscribe(value3 => {
@@ -273,10 +292,6 @@ export class CrearModificarVentaComponent implements OnInit {
 
   vaciarFormulario() {
     //this.controlInfoProveedor = false;
-
-   
-
-
   }
 
   public apreciocosto: any;
@@ -291,6 +306,7 @@ export class CrearModificarVentaComponent implements OnInit {
 
 
   public idProducto: any;
+  public precioCompra: any;
   public precioUnitario: any;
   public iva: any;
   public stock: any;
@@ -307,6 +323,7 @@ export class CrearModificarVentaComponent implements OnInit {
 
       this.idProducto = value3.id;
       this.precioUnitario = value3.precioVenta;
+      this.precioCompra = value3.precioCompra;
       this.iva = value3.iva;
       this.stock = value3.stock;
       this.nombre = value3.nombre;
@@ -351,21 +368,21 @@ export class CrearModificarVentaComponent implements OnInit {
 
   }
 
-  public subtotalTabla:any =0;
-  public ivaTabla:any =0;
-  public descuentoTabla:any =0;
-  public totalTabla:any =0;
+  public subtotalTabla: any = 0;
+  public ivaTabla: any = 0;
+  public descuentoTabla: any = 0;
+  public totalTabla: any = 0;
 
 
   public calcularValorTabla() {
 
-    this.subtotalTabla =0;
-    this.ivaTabla=0;
-    this.descuentoTabla=0;
-    this.totalTabla=0;
+    this.subtotalTabla = 0;
+    this.ivaTabla = 0;
+    this.descuentoTabla = 0;
+    this.totalTabla = 0;
 
     this.contenidoVentaLista = this.dataSource1;
-    
+
     for (var i = 0; i < this.contenidoVentaLista.length; i++) {
       this.totalTabla = (Number(this.totalTabla) + Number(this.contenidoVentaLista[i].precioTotal)).toFixed(2);
       this.subtotalTabla = (Number(this.subtotalTabla) + (Number(this.contenidoVentaLista[i].precioUnitario) * Number(this.contenidoVentaLista[i].cantidad))).toFixed(2);
@@ -376,65 +393,69 @@ export class CrearModificarVentaComponent implements OnInit {
 
     }
 
-  
+
 
   }
 
 
   public guardarInformacion() {
     this.loaderActualizar = true;
-
-/*
-
-    this.produccionListaGuardar.idEmpresa = idEmpresa.getIdEmpresa;
-    this.produccionListaGuardar.nombre = Object.values(this.formGrupos.getRawValue())[0];
-    this.produccionListaGuardar.codigoBarra = Object.values(this.formGrupos.getRawValue())[1];
-    this.produccionListaGuardar.iva = Object.values(this.formGrupoPrecio.getRawValue())[0];
-    this.produccionListaGuardar.precioVenta = Object.values(this.formGrupoPrecio.getRawValue())[1];
+    this.contenidoVentaLista = this.dataSource1;
 
 
-    this.produccionService.createProducto(this.produccionListaGuardar).subscribe(value => {
-      this._snackBar.open('Producto registrado', 'ACEPTAR');
-      this.contenidoProduccionListaGuardar.idProduccion = value.id;
-      this.guardarContenido();
-      this.vaciarFormulario();
-      this.botonCancelarRegistro();
+    if (this.contenidoVentaLista.length != 0) {
+
+      this.ventaListaGuardar.idEmpresa = idEmpresa.getIdEmpresa;
+      this.ventaListaGuardar.cedulaUsuario = cedula.getCedula;
+      this.ventaListaGuardar.fechaEmision = fechaActual.getFechaActual;
+      this.ventaListaGuardar.subtotal = this.subtotalTabla;
+      this.ventaListaGuardar.iva = this.ivaTabla;
+      this.ventaListaGuardar.descuento = this.descuentoTabla;
+      this.ventaListaGuardar.total = this.totalTabla;
+      this.ventaListaGuardar.observacion = "";
+      this.ventaListaGuardar.idTipoPago = Object.values(this.formGrupoTipoPago.getRawValue())[0];
+      this.ventaListaGuardar.idCliente = this.idCliente;
+
+      this.ventaService.createVenta(this.ventaListaGuardar).subscribe(value => {
+        this._snackBar.open('Venta registrado', 'ACEPTAR');
+        this.guardarContenido(value.id);
+        this.dataSource1 = [];
+        this.calcularValorTabla();
+        this.loaderActualizar = false;
+      }, error => {
+        this.loaderActualizar = false;
+        this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
+      })
+
+    } else {
+      this._snackBar.open(' AGREGE AL MENOS UN PRODUCTO', 'ACEPTAR');
       this.loaderActualizar = false;
-    }, error => {
-      this.loaderActualizar = false;
-      this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
-    })*/
+    }
   }
 
 
-  guardarContenido() {
-
+  guardarContenido(idVenta: any) {
 
     this.contenidoProduccionLista = [];
     this.contenidoProduccionLista = this.dataSource1;
 
     for (let i = 0; i < this.contenidoProduccionLista.length; i++) {
-      this.contenidoProduccionListaGuardar.id = this.contenidoProduccionLista[i].id;
-      this.contenidoProduccionListaGuardar.cantidad = this.contenidoProduccionLista[i].cantidad;
-      this.contenidoProduccionListaGuardar.idProducto = this.contenidoProduccionLista[i].idProducto;
+      this.contenidoVentaListaGuardar.id = this.contenidoProduccionLista[i].id;
+      this.contenidoVentaListaGuardar.cantidad = this.contenidoProduccionLista[i].cantidad;
+      this.contenidoVentaListaGuardar.idProducto = this.contenidoProduccionLista[i].idProducto;
+      this.contenidoVentaListaGuardar.tipo = this.contenidoProduccionLista[i].tipo;
 
-      if (this.contenidoProduccionListaGuardar.id == 0) {
-        this.produccionService.createContenidoProducto(this.contenidoProduccionListaGuardar).subscribe(value => {
-        }, error => {
-          this._snackBar.open(error.error.message + ' OCURRIO UN ERROR AL AGREGAR ARTICULO', 'ACEPTAR');
+      this.contenidoVentaListaGuardar.precioUnitario = this.contenidoProduccionLista[i].precioUnitario;
+      this.contenidoVentaListaGuardar.precioIva = this.contenidoProduccionLista[i].precioIva;
+      this.contenidoVentaListaGuardar.precioTotal = this.contenidoProduccionLista[i].precioTotal;
+      this.contenidoVentaListaGuardar.ganancia = this.contenidoProduccionLista[i].ganancia.toFixed(2);
 
-        })
-      } else {
-        this.produccionService.putContendidoProduccion(this.contenidoProduccionListaGuardar).subscribe(
-          Response => {
-          }, error => {
-            this._snackBar.open(error.error.message + ' OCURRIO UN ERROR ', 'ACEPTAR');
-          }
+      console.info(this.contenidoVentaListaGuardar);
 
-        )
-
-      }
-
+      this.ventaService.createContenidoVenta(this.contenidoVentaListaGuardar, idVenta).subscribe(value => {
+      }, error => {
+        this._snackBar.open(error.error.message + ' OCURRIO UN ERROR AL AGREGAR ARTICULO', 'ACEPTAR');
+      })
 
     }
 
@@ -482,6 +503,9 @@ export class CrearModificarVentaComponent implements OnInit {
         this.precioUnitario = (Number(this.precioUnitario) - Number(this.preiva));
         var totoal = (((this.precioUnitario) + Number(this.preiva)) * Number(cati)).toFixed(2);
 
+        var ganancia = (Number(this.precioUnitario) * Number(cati)) - (Number(this.precioCompra) * Number(cati));
+
+
         this.dataSource1.push({
           id: 0,
           idProducto: this.idProducto,
@@ -492,6 +516,7 @@ export class CrearModificarVentaComponent implements OnInit {
           precioUnitario: this.precioUnitario,
           precioIva: this.preiva,
           precioTotal: totoal,
+          ganancia: ganancia,
         });
 
         this.table.renderRows();
@@ -543,6 +568,7 @@ export class CrearModificarVentaComponent implements OnInit {
       this.precioUnitario = (Number(this.precioUnitario) - Number(this.preiva));
       var totoal = (((this.precioUnitario) + Number(this.preiva)) * Number(cati)).toFixed(2);
 
+
       this.dataSource1.push({
         id: 0,
         idProducto: this.idProducto,
@@ -553,6 +579,7 @@ export class CrearModificarVentaComponent implements OnInit {
         precioUnitario: this.precioUnitario,
         precioIva: this.preiva,
         precioTotal: totoal,
+        ganancia: 0,
       });
       this.calcularValorTabla();
 
@@ -578,6 +605,7 @@ export class CrearModificarVentaComponent implements OnInit {
 
 
   removeData(codigoba: any, id: any) {
+
 
     Swal.fire({
       title: 'Estas seguro?',
@@ -643,6 +671,6 @@ export class CrearModificarVentaComponent implements OnInit {
   }
 
 
-  
+
 
 }

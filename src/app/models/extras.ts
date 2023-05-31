@@ -30,5 +30,6 @@ export class FechaActual {
 export class InformacionBasica{
     id?: any;
     nombre?: any;
+    descripcion?:any;
     estado?: any;
 }

@@ -48,7 +48,7 @@ export class CrearModificarProductoComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
-    nombre: new FormControl<String>('', [Validators.required, Validators.pattern(/^[a-z\s\u00E0-\u00FC\u00f1]*$/i)]),
+    nombre: new FormControl<String>('', [Validators.required]),
     codigobarra: new FormControl<String>('', [Validators.required]),
     categoria: new FormControl<any>('', [Validators.required]),
     proveedor: new FormControl<String>('', [Validators.required, Validators.pattern("[0-9]+")]),
@@ -88,7 +88,7 @@ export class CrearModificarProductoComponent implements OnInit {
   }
 
   public controlFecha: Boolean = false;
-  public controlStock:Boolean = false;
+  public controlStock: Boolean = false;
 
   public controlInicio() {
 

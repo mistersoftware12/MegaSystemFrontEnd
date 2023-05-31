@@ -5,16 +5,32 @@
 
         <div style="overflow-x:auto; ">
             <mat-progress-bar *ngIf="loaderCargaDatos" mode="indeterminate"></mat-progress-bar>
-            <div>
-                <div class="opcion1fd">
-                    <h3> <strong>NUEVA VENTA</strong></h3>
-                </div>
-            </div>
 
             <table>
                 <tr>
 
                 </tr>
+            </table>
+
+            <table style="width: 100%;">
+                <th>
+
+                </th>
+                <th>
+                    <div class="opcion1fd">
+                        <h3> <strong>NUEVA VENTA</strong></h3>
+                    </div>
+                </th>
+                <th>
+                    <mat-form-field appearance="outline" style="width: 180px;"  [formGroup]="formGrupoTipoPago">
+                        <mat-label>TIPO PAGO</mat-label>
+                        <mat-select  formControlName="pago">
+                            <mat-option *ngFor="let option2 of tipoPagoLista"
+                                [value]="option2.id">{{option2.descripcion}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </th>
             </table>
 
             <h4>DATOS DE CLIENTE</h4>
@@ -408,7 +424,7 @@
                 <div class="opcion1fd">
                     <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
 
-                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
+                    <button [disabled]="formGrupoTipoPago.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
                         color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
                         <mat-icon>save</mat-icon> REGISTRAR
                     </button>
