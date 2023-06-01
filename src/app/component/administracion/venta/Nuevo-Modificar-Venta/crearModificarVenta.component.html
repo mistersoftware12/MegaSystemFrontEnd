@@ -22,9 +22,9 @@
                     </div>
                 </th>
                 <th>
-                    <mat-form-field appearance="outline" style="width: 180px;"  [formGroup]="formGrupoTipoPago">
+                    <mat-form-field appearance="outline" style="width: 180px;" [formGroup]="formGrupoTipoPago">
                         <mat-label>TIPO PAGO</mat-label>
-                        <mat-select  formControlName="pago">
+                        <mat-select formControlName="pago">
                             <mat-option *ngFor="let option2 of tipoPagoLista"
                                 [value]="option2.id">{{option2.descripcion}}
                             </mat-option>
@@ -424,8 +424,8 @@
                 <div class="opcion1fd">
                     <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
 
-                    <button [disabled]="formGrupoTipoPago.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
-                        color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
+                    <button [disabled]="formCliente.invalid  " mat-flat-button color="primary"
+                        style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
                         <mat-icon>save</mat-icon> REGISTRAR
                     </button>
 

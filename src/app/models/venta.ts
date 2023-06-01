@@ -24,7 +24,16 @@ export class VentaContenidoRequest {
     precioIva?: any;
     precioTotal?: any;
     ganancia?: any;
-    //idVentaEncabezado;
+}
 
+export class VentaResponse {
+    id?: any;
+    secuencia?: any;
+    fechaEmision?: any;
+    nombreUsuario?: any;
+    cedulaCliente?: any;
+    nombreCliente?: any;
+    nombreTipoPago?: any;
+    total?: any;
 }
 

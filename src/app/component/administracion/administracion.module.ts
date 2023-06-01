@@ -21,6 +21,9 @@ import { CrearModificarBajaProductoComponent } from './producto/Nuevo-Modificar-
 import { ListarProduccionComponent } from './produccion/Listar-Produccion/listar-produccion.component';
 import { CrearModificarProduccionComponent } from './produccion/Nuevo-Modificar-Produccion/crearModificarProduccion.component';
 import { CrearModificarVentaComponent } from './venta/Nuevo-Modificar-Venta/crearModificarVenta.component';
+import { ListarVentaComponent } from './venta/Listar-Venta/listar-venta.component';
+import { ListarCreditosComponent } from './creditos/Clientes/Listar-Creditos/listar-credito.component';
+import { CrearModificarCierreCajaComponent } from './caja/cierrecaja/Nuevo-Modificar-Cierre/crearModificarCierreCaja.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -107,6 +110,19 @@ const routes: Routes = [
     path: 'creaModificarVenta',
     component: CrearModificarVentaComponent
   },
+  {
+    path: 'administracionVenta',
+    component: ListarVentaComponent
+  },
+
+  {
+    path: 'administracionCredito',
+    component: ListarCreditosComponent
+  },
+  {
+    path: 'creaModificarCierreCaja',
+    component: CrearModificarCierreCajaComponent
+  },
 
 ]
 
@@ -136,6 +152,11 @@ const routes: Routes = [
     CrearModificarProduccionComponent,
 
     CrearModificarVentaComponent,
+    ListarVentaComponent,
+    ListarCreditosComponent,
+
+
+    CrearModificarCierreCajaComponent
   ],
   imports: [
     CommonModule,

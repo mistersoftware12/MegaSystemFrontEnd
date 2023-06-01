@@ -1,0 +1,108 @@
+<section>
+    <br>
+    <mat-card class="example-card" style="background: #F2F1E9">
+        <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+        <div style="overflow-x:auto; ">
+            <mat-progress-bar *ngIf="loaderCargaDatos" mode="indeterminate"></mat-progress-bar>
+            <div>
+                <div class="opcion1fd">
+                    <h3> <strong>RESUMEN CIERRE DE CAJA {{fechaActu}}</strong></h3>
+                </div>
+            </div>
+
+            <table [formGroup]="formGrupos">
+                <tr style="text-align: left;">
+                    <td>
+                        <table>
+                            <tr style="color: red;">
+                                <strong>VENTAS</strong>
+                            </tr>
+                            <tr>
+                                <strong>EFECTIVO: </strong> ${{ventaEfectivo}}
+                            </tr>
+                            <tr>
+                                <strong>CRÉDITO: </strong> ${{ventaCredito}}
+                            </tr>
+                            <tr>
+                                <strong>CHEQUE: </strong> ${{ventaCheque}}
+                            </tr>
+                            <tr>
+                                <strong>T. BANCARIA: </strong> ${{ventaBancaria}}
+                            </tr>
+                            <tr>
+                                <strong>T. DÉBITO: </strong> ${{ventaDebito}}
+                            </tr>
+                            <tr>
+                                <h2>
+                                    <strong>TOTAL: </strong> ${{ventaTotal}}
+                                </h2>
+
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td>
+                        <table>
+                            <tr style="color: red;">
+                                <strong>DINERO EFECTIVO</strong>
+                            </tr>
+                            <tr>
+                                <strong>EFECTIVO: </strong> ${{cobroEfectivo}}
+                            </tr>
+                            <tr>
+                                <strong>CRÉDITO: </strong> ${{cobroCredito}}
+                            </tr>
+                            <tr>
+                                .
+                            </tr>
+                            <tr>
+                                .
+                            </tr>
+                            <tr>
+                                .
+                            </tr>
+                            <tr>
+                                <h2 style="color: rgb(6, 10, 93);">
+                                    <strong>TOTAL: </strong> ${{cobroTotal}}
+                                </h2>
+
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </table>
+
+        </div>
+
+
+        <div>
+            <div>
+                <div class="opcion1fd">
+                    <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
+                        <mat-icon>save</mat-icon> REGISTRAR
+                    </button>
+
+                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaActualizar==true" mat-flat-button
+                        color="primary" style="color: #FFFFFF;" class=".buttonguardar"
+                        (click)="guardarInformacionEditar()">
+                        <mat-icon>save</mat-icon> GUARDAR
+                    </button>
+
+                    <button mat-raised-button mat-flat-button color="warn" class="buttonprincipales"
+                        (click)="botonCancelarRegistro()" class="buttonguardar">
+                        <mat-icon>close</mat-icon> CANCELAR
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </mat-card>
+</section>
+
+
+<br>

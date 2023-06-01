@@ -24,7 +24,9 @@
 
       <mat-menu #articulo="matMenu">
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionProducto'">Mis Productos</button>
+        <!--
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionServicio'">Stock Rojo</button>
+        -->
       </mat-menu>
 
 
@@ -36,12 +38,11 @@
       </mat-menu>
 
 
+      <!--
       <button mat-button [matMenuTriggerFor]="catalogodigital"> <mat-icon>help_outline</mat-icon><br>SERVICIOS</button>
-
-
       <mat-menu #catalogodigital="matMenu">
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCatalogoDigital'">Mis Servicios</button>
-      </mat-menu>
+      </mat-menu>-->
 
 
       <button mat-button [matMenuTriggerFor]="ordenCompra"> <mat-icon>add_shopping_cart</mat-icon><br>VENTA</button>
@@ -49,7 +50,15 @@
 
       <mat-menu #ordenCompra="matMenu">
         <button mat-menu-item [routerLink]="'/panel/biblioteca/creaModificarVenta'">Nueva Venta</button>
-        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionOrdenRecibo'">Mis Ventas</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionVenta'">Mis Ventas</button>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="caja"> <mat-icon>add_shopping_cart</mat-icon><br>CAJA</button>
+
+
+      <mat-menu #caja="matMenu">
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCredito'">Creditos</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/creaModificarCierreCaja'">Cierre de Caja</button>
       </mat-menu>
 
 

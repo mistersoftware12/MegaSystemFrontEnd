@@ -53,10 +53,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class CrearModificarVentaComponent implements OnInit {
 
-
-  public botonParaGuardar: Boolean = false;
-  botonParaActualizar: Boolean = false;
-
   public idProductoArticulo = [];
 
   public controlInfoProveedor: Boolean = false;
@@ -156,8 +152,7 @@ export class CrearModificarVentaComponent implements OnInit {
   public controlInicio() {
 
     if (idUniversal.getIdUniversal == 0) {
-      this.botonParaGuardar = true;
-      this.botonParaActualizar = false;
+
       this.vaciarFormulario();
 
       this.formCliente.setValue({
@@ -259,6 +254,15 @@ export class CrearModificarVentaComponent implements OnInit {
       this.loaderActualizar = false;
       this.loaderActualizarCedula = false;
       this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
+
+      this.formCliente.setValue({
+        cedula: '',
+        correo: '',
+        direccion: '',
+        nombre: '',
+        telefono: '',
+      })
+
     })
 
   }
@@ -286,7 +290,7 @@ export class CrearModificarVentaComponent implements OnInit {
   }
 
   public botonCancelarRegistro() {
-    this.router.navigate(['/panel/biblioteca/administracionProduccion']);
+    this.router.navigate(['/panel/biblioteca/administracionVenta']);
     idUniversal.setIdUniversal = 0;
   }
 
