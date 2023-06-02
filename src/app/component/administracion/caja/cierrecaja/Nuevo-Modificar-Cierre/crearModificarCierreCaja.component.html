@@ -82,21 +82,15 @@
                 <div class="opcion1fd">
                     <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
 
-                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaGuardar==true" mat-flat-button
-                        color="primary" style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
-                        <mat-icon>save</mat-icon> REGISTRAR
-                    </button>
+                   
 
-                    <button [disabled]="formGrupos.invalid " *ngIf="botonParaActualizar==true" mat-flat-button
+                    <button  [disabled]=" idCajaControl==0 || estadoCierreCaja==true"  *ngIf="botonParaActualizar==true" mat-flat-button
                         color="primary" style="color: #FFFFFF;" class=".buttonguardar"
                         (click)="guardarInformacionEditar()">
                         <mat-icon>save</mat-icon> GUARDAR
                     </button>
 
-                    <button mat-raised-button mat-flat-button color="warn" class="buttonprincipales"
-                        (click)="botonCancelarRegistro()" class="buttonguardar">
-                        <mat-icon>close</mat-icon> CANCELAR
-                    </button>
+                    
                 </div>
             </div>
         </div>

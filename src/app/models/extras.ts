@@ -32,4 +32,6 @@ export class InformacionBasica{
     nombre?: any;
     descripcion?:any;
     estado?: any;
+    count?:any;
+    
 }

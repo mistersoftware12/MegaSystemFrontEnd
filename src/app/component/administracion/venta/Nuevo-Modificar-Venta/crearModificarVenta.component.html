@@ -424,8 +424,9 @@
                 <div class="opcion1fd">
                     <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
 
-                    <button [disabled]="formCliente.invalid  " mat-flat-button color="primary"
-                        style="color: #FFFFFF;" class=".buttonguardar" (click)="guardarInformacion()">
+                    <button [disabled]="formCliente.invalid || idCajaControl==0 || estadoCierreCaja==true"
+                        mat-flat-button color="primary" style="color: #FFFFFF;" class=".buttonguardar"
+                        (click)="guardarInformacion()">
                         <mat-icon>save</mat-icon> REGISTRAR
                     </button>
 

@@ -82,3 +82,15 @@ export const fechaActual = {
   }
   
 }
+
+export const idCaja = {
+  idCaja: 0,
+
+  get getIdCaja() {
+    return this.idCaja;
+  },
+
+  set setIdCaja(newIdCaja) {
+    this.idCaja = newIdCaja;
+  }
+}

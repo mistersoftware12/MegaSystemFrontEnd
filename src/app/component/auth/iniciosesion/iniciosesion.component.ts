@@ -37,11 +37,10 @@ export class IniciosesionComponent implements OnInit, AfterViewInit {
   iniciarsesion() {
     this.iniciobar = true
     this.inicioSesionService.loginUsuario(this.formGroup.getRawValue()).subscribe(value => {
-      console.log(value.token)
+ 
       this._snackBar.open('SESION INICIADA', 'ACEPTAR');
       sessionStorage.clear()
       sessionStorage.setItem('personausuario', JSON.stringify(value));
-      console.info(value);
       this.router.navigate(['/panel/biblioteca/bienvenida']);
       this.iniciobar = false
 
@@ -52,7 +51,7 @@ export class IniciosesionComponent implements OnInit, AfterViewInit {
 
   }
 
-  abrirCatalogoDigital(){
+  abrirCatalogoDigital() {
     this.router.navigate(['/menuKapada']);
   }
 

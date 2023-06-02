@@ -2,7 +2,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { cedula, fechaActual, idEmpresa } from 'src/environments/environment';
+import { cedula, fechaActual, idCaja, idEmpresa } from 'src/environments/environment';
 
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -19,6 +19,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
 import { ReporteService } from 'src/app/services/reporte.service';
+import { CajaService } from 'src/app/services/caja.service';
+import { CierreCaja } from 'src/app/models/caja';
 
 
 @Component({
@@ -62,24 +64,37 @@ export class CrearModificarCierreCajaComponent implements OnInit {
 
 
 
-  public CategoriaListaGuardar: Categoria = new Categoria();
+  public CierreListaGuardar: CierreCaja = new CierreCaja();
+
+  public idCajaControl: any = 0;
+  public estadoCierreCaja: any = false;
 
   constructor(
     private _snackBar: MatSnackBar,
-    private router: Router,
-    private categoriaService: CategoriaService,
     private reporteService: ReporteService,
+    private cajaService: CajaService,
   ) {
   }
-  
+
   public fechaActu;
 
   ngOnInit(): void {
-    this.controlInicio();
+    this.controlCaja();
 
   }
   public fechaNacimiento: any;
   public controlFecha: Boolean = false;
+
+
+  public controlCaja() {
+    var fecha = new Date(fechaActual.getFechaActual);
+    this.cajaService.getApertura(cedula.getCedula, fecha).subscribe(value => {
+      this.idCajaControl = value.id;
+      this.estadoCierreCaja = value.estado;
+
+      this.controlInicio();
+    })
+  }
 
   public controlInicio() {
 
@@ -104,56 +119,42 @@ export class CrearModificarCierreCajaComponent implements OnInit {
 
   }
 
-
-  public botonCancelarRegistro() {
-    this.router.navigate(['/panel/biblioteca/administracioncategoria']);
-    idUniversal.setIdUniversal = 0;
-  }
-
-  vaciarFormulario() {
-    this.controlInfoProveedor = false;
-  }
-
-
-  public guardarInformacion() {
-    this.loaderActualizar = true;
-
-    this.CategoriaListaGuardar.nombre = Object.values(this.formGrupos.getRawValue())[0];
-    this.CategoriaListaGuardar.idEmpresa = idEmpresa.getIdEmpresa;
-
-
-    this.categoriaService.createCategoria(this.CategoriaListaGuardar).subscribe(value => {
-      this._snackBar.open('Categoria registrado', 'ACEPTAR');
-      this.vaciarFormulario();
-      this.botonCancelarRegistro();
-      this.loaderActualizar = false;
-    }, error => {
-      this.loaderActualizar = false;
-      this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
-    })
-  }
-
-
-
-  public fechacontrol() {
-    this.controlFecha = true;
-  }
-
   public guardarInformacionEditar() {
     this.loaderActualizar = true;
 
-    this.CategoriaListaGuardar.nombre = Object.values(this.formGrupos.getRawValue())[0];
-    this.CategoriaListaGuardar.idEmpresa = idEmpresa.getIdEmpresa;
 
-    this.categoriaService.putCategoria(this.CategoriaListaGuardar).subscribe(value => {
-      this._snackBar.open('Categoria actualizado', 'ACEPTAR');
-      this.vaciarFormulario();
-      this.botonCancelarRegistro();
-      this.loaderActualizar = false;
-    }, error => {
-      this.loaderActualizar = false;
-      this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
+    Swal.fire({
+      title: 'Seguro que deseas cerrar caja?',
+      text: "Una vez cerrado ya no podras continuar con ventas",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Generar apertura!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.CierreListaGuardar.id = idCaja.getIdCaja;
+        this.CierreListaGuardar.totalEfectivo = this.cobroTotal;
+        this.CierreListaGuardar.totalVenta = this.ventaTotal;
+        this.cajaService.createCierreCaja(this.CierreListaGuardar).subscribe(value => {
+          this._snackBar.open('Caja Cerrada', 'ACEPTAR');
+          this.controlCaja();
+          this.loaderActualizar = false;
+        }, error => {
+          this.loaderActualizar = false;
+          this._snackBar.open(error.error.message + ' OCURRIO UN ERROR', 'ACEPTAR');
+        })
+
+      } else {
+        this.loaderActualizar = false;
+      }
     })
+
+
+
+
+
   }
 
 }

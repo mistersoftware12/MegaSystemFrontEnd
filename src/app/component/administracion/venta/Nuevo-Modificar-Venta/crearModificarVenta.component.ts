@@ -2,7 +2,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { cedula, fechaActual, idEmpresa } from 'src/environments/environment';
+import { cedula, fechaActual, idCaja, idEmpresa } from 'src/environments/environment';
 
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -23,6 +23,7 @@ import { TipoService } from 'src/app/services/tipo.service';
 import { InformacionBasica } from 'src/app/models/extras';
 import { VentaContenidoRequest, VentaEncabezadoRequest } from 'src/app/models/venta';
 import { VentaService } from 'src/app/services/venta.service';
+import { CajaService } from 'src/app/services/caja.service';
 
 export interface PeriodicElement {
   id: any;
@@ -68,6 +69,9 @@ export class CrearModificarVentaComponent implements OnInit {
   public controlArticulos: Boolean = false;
   public controlProduccion: Boolean = false;
   loaderActualizarTablam2: boolean;
+
+  public idCajaControl:any = 0;
+  public estadoCierreCaja:any = false;
 
   formGrupos = new FormGroup({
     nombre: new FormControl<String>('', [Validators.required, Validators.pattern(/^[a-z\s\u00E0-\u00FC\u00f1]*$/i)]),
@@ -132,27 +136,34 @@ export class CrearModificarVentaComponent implements OnInit {
     private produccionService: ProduccionService,
     private tipoService: TipoService,
     private ventaService: VentaService,
+    private cajaService: CajaService,
   ) {
 
   }
 
   ngOnInit(): void {
+  
+    this.controlCaja();
     this.listarTipoPago();
     this.listarProductos();
     this.listarProduccion();
-    this.controlInicio();
-
-
-
+    //this.controlInicio();
   }
 
   public controlFecha: Boolean = false;
 
 
+  public controlCaja(){
+    var fecha = new Date(fechaActual.getFechaActual);
+    this.cajaService.getApertura(cedula.getCedula, fecha).subscribe(value => {
+      this.idCajaControl = value.id;
+      this.estadoCierreCaja = value.estado;
+
+      this.controlInicio();
+    })
+  }
+
   public controlInicio() {
-
-    if (idUniversal.getIdUniversal == 0) {
-
       this.vaciarFormulario();
 
       this.formCliente.setValue({
@@ -164,9 +175,6 @@ export class CrearModificarVentaComponent implements OnInit {
       })
 
       this.buscarCliente();
-
-    }
-
   }
 
   onSearchChange(): void {
@@ -453,8 +461,6 @@ export class CrearModificarVentaComponent implements OnInit {
       this.contenidoVentaListaGuardar.precioIva = this.contenidoProduccionLista[i].precioIva;
       this.contenidoVentaListaGuardar.precioTotal = this.contenidoProduccionLista[i].precioTotal;
       this.contenidoVentaListaGuardar.ganancia = this.contenidoProduccionLista[i].ganancia.toFixed(2);
-
-      console.info(this.contenidoVentaListaGuardar);
 
       this.ventaService.createContenidoVenta(this.contenidoVentaListaGuardar, idVenta).subscribe(value => {
       }, error => {
