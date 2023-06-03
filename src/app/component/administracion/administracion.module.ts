@@ -26,6 +26,7 @@ import { ListarCreditosComponent } from './creditos/Clientes/Listar-Creditos/lis
 import { CrearModificarCierreCajaComponent } from './caja/cierrecaja/Nuevo-Modificar-Cierre/crearModificarCierreCaja.component';
 import { ListarCobroCajaComponent } from './caja/admin/Listar-Cobro/listar-cobro-caja.component';
 import { ResumenGeneralComponent } from './caja/admin/Resumen-General/resumenGeneral.component';
+import { ListaSubidaDataComponent } from './propietario/Listar-Subida/listar-subidaData.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -137,6 +138,11 @@ const routes: Routes = [
     component: ResumenGeneralComponent
   },
 
+  {
+    path: 'administracionSubidaData',
+    component: ListaSubidaDataComponent
+  },
+
 
 
 ]
@@ -174,6 +180,8 @@ const routes: Routes = [
     CrearModificarCierreCajaComponent,
     ListarCobroCajaComponent,
     ResumenGeneralComponent,
+
+    ListaSubidaDataComponent,
   ],
   imports: [
     CommonModule,

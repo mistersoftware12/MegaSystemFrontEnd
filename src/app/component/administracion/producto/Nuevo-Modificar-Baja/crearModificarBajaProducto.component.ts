@@ -81,7 +81,7 @@ export class CrearModificarBajaProductoComponent implements OnInit {
       this.botonParaActualizar = false;
       this.botonCancelarRegistro();
 
-    }else{
+    } else {
       this.botonParaGuardar = true;
     }
 
@@ -107,7 +107,7 @@ export class CrearModificarBajaProductoComponent implements OnInit {
     this.IngresoBajaListaGuardar.fechaRegistro = fechaActual.getFechaActual;
     this.IngresoBajaListaGuardar.idProducto = idUniversal.getIdUniversal;
     this.IngresoBajaListaGuardar.observacion = Object.values(this.formGrupos.getRawValue())[2];
-    this.IngresoBajaListaGuardar.cedulaUsuario= cedula.getCedula;
+    this.IngresoBajaListaGuardar.cedulaUsuario = cedula.getCedula;
 
     this.ingresoBajaProductoService.createIngresoBajaProducto(this.IngresoBajaListaGuardar, 2).subscribe(value => {
       this._snackBar.open('Baja producto registrado', 'ACEPTAR');

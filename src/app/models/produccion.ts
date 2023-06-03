@@ -5,10 +5,11 @@ export class ProduccionRequest {
     iva?: any;
     precioVenta?: any;
     idEmpresa?: any;
+    precioCompra?: any;
 }
 
 
 
-export class ContenidoProduccion{
+export class ContenidoProduccion {
 
 }

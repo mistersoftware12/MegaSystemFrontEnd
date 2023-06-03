@@ -70,8 +70,8 @@ export class CrearModificarVentaComponent implements OnInit {
   public controlProduccion: Boolean = false;
   loaderActualizarTablam2: boolean;
 
-  public idCajaControl:any = 0;
-  public estadoCierreCaja:any = false;
+  public idCajaControl: any = 0;
+  public estadoCierreCaja: any = false;
 
   formGrupos = new FormGroup({
     nombre: new FormControl<String>('', [Validators.required, Validators.pattern(/^[a-z\s\u00E0-\u00FC\u00f1]*$/i)]),
@@ -142,7 +142,7 @@ export class CrearModificarVentaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+
     this.controlCaja();
     this.listarTipoPago();
     this.listarProductos();
@@ -153,7 +153,7 @@ export class CrearModificarVentaComponent implements OnInit {
   public controlFecha: Boolean = false;
 
 
-  public controlCaja(){
+  public controlCaja() {
     var fecha = new Date(fechaActual.getFechaActual);
     this.cajaService.getApertura(cedula.getCedula, fecha).subscribe(value => {
       this.idCajaControl = value.id;
@@ -164,17 +164,17 @@ export class CrearModificarVentaComponent implements OnInit {
   }
 
   public controlInicio() {
-      this.vaciarFormulario();
+    this.vaciarFormulario();
 
-      this.formCliente.setValue({
-        cedula: '9999999999',
-        correo: '',
-        direccion: '',
-        nombre: '',
-        telefono: '',
-      })
+    this.formCliente.setValue({
+      cedula: '9999999999',
+      correo: '',
+      direccion: '',
+      nombre: '',
+      telefono: '',
+    })
 
-      this.buscarCliente();
+    this.buscarCliente();
   }
 
   onSearchChange(): void {
@@ -354,8 +354,6 @@ export class CrearModificarVentaComponent implements OnInit {
   produccionAgregar() {
     this.loaderActualizarCedula = true;
     this.produccionService.getProductoCodigoBarra(Object.values(this.forGrupoProduccion.getRawValue())[0]).subscribe(value3 => {
-      console.info(value3);
-
 
       this.forGrupoProduccion.setValue({
         productop: value3.codigoBarra,
@@ -368,6 +366,7 @@ export class CrearModificarVentaComponent implements OnInit {
       this.iva = value3.iva;
       //this.stock = value3.stock;
       this.nombre = value3.nombre;
+      this.precioCompra = value3.precioCompra;
 
       this.loaderActualizarCedula = false;
     }, error => {
@@ -577,7 +576,7 @@ export class CrearModificarVentaComponent implements OnInit {
       this.preiva = ((this.iva / 100) * this.precioUnitario).toFixed(2);
       this.precioUnitario = (Number(this.precioUnitario) - Number(this.preiva));
       var totoal = (((this.precioUnitario) + Number(this.preiva)) * Number(cati)).toFixed(2);
-
+      var ganancia = (Number(this.precioUnitario) * Number(cati)) - (Number(this.precioCompra) * Number(cati));
 
       this.dataSource1.push({
         id: 0,
@@ -589,7 +588,7 @@ export class CrearModificarVentaComponent implements OnInit {
         precioUnitario: this.precioUnitario,
         precioIva: this.preiva,
         precioTotal: totoal,
-        ganancia: 0,
+        ganancia: ganancia,
       });
       this.calcularValorTabla();
 

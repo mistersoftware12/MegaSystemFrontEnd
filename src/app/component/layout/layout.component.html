@@ -70,6 +70,14 @@
 
       </mat-menu>
 
+
+      <button mat-button [matMenuTriggerFor]="admia"> <mat-icon>add_shopping_cart</mat-icon><br>ADMINISTRACIÓN</button>
+
+
+      <mat-menu #admia="matMenu">
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionSubidaData'">Subida productos</button>
+      </mat-menu>
+
     </td>
 
 

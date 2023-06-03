@@ -73,6 +73,7 @@ export class CrearModificarProduccionComponent implements OnInit {
 
     iva: new FormControl<String>('', [Validators.required]),
     preciofinal: new FormControl<String>('', [Validators.required]),
+    precioinicial: new FormControl<String>('', [Validators.required]),
   })
 
   forGrupoProducto = new FormGroup({
@@ -148,6 +149,7 @@ export class CrearModificarProduccionComponent implements OnInit {
         this.formGrupoPrecio.setValue({
           iva: value.iva,
           preciofinal: value.precioVenta.toFixed(2),
+          precioinicial: value.precioCompra.toFixed(2),
         })
 
 
@@ -196,6 +198,7 @@ export class CrearModificarProduccionComponent implements OnInit {
     this.formGrupoPrecio.setValue({
       iva: "0",
       preciofinal: "0",
+      precioinicial: "0",
     })
 
 
@@ -233,6 +236,7 @@ export class CrearModificarProduccionComponent implements OnInit {
       this.formGrupoPrecio.setValue({
         iva: this.aiva,
         preciofinal: this.prefiniva.toFixed(2),
+        precioinicial: Object.values(this.formGrupoPrecio.getRawValue())[2],
       })
 
     }
@@ -252,6 +256,7 @@ export class CrearModificarProduccionComponent implements OnInit {
     this.produccionListaGuardar.codigoBarra = Object.values(this.formGrupos.getRawValue())[1];
     this.produccionListaGuardar.iva = Object.values(this.formGrupoPrecio.getRawValue())[0];
     this.produccionListaGuardar.precioVenta = Object.values(this.formGrupoPrecio.getRawValue())[1];
+    this.produccionListaGuardar.precioCompra = Object.values(this.formGrupoPrecio.getRawValue())[2];
 
 
     this.produccionService.createProducto(this.produccionListaGuardar).subscribe(value => {
@@ -438,7 +443,7 @@ export class CrearModificarProduccionComponent implements OnInit {
     this.produccionListaGuardar.codigoBarra = Object.values(this.formGrupos.getRawValue())[1];
     this.produccionListaGuardar.iva = Object.values(this.formGrupoPrecio.getRawValue())[0];
     this.produccionListaGuardar.precioVenta = Object.values(this.formGrupoPrecio.getRawValue())[1];
-
+    this.produccionListaGuardar.precioCompra = Object.values(this.formGrupoPrecio.getRawValue())[2];
     this.produccionService.putProduccion(this.produccionListaGuardar).subscribe(value => {
       this._snackBar.open('Producto actualizado', 'ACEPTAR');
       this.guardarContenido();

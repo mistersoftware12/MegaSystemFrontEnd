@@ -145,7 +145,6 @@ export class ResumenGeneralComponent implements OnInit {
   public filtrarInfo() {
 
     this.cajaService.getResumen(Object.values(this.formGrupos.getRawValue())[0], idEmpresa.getIdEmpresa, Object.values(this.formGrupos.getRawValue())[1], Object.values(this.formGrupos.getRawValue())[2]).subscribe(value => {
-      console.info(value)
       this.subotal = value.subotal.toFixed(2);
       this.descuento = value.descuento.toFixed(2);
       this.iva = value.iva.toFixed(2);
