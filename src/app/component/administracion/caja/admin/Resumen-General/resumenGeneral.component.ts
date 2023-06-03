@@ -2,7 +2,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { idEmpresa } from 'src/environments/environment';
+import { fechaActual, idEmpresa } from 'src/environments/environment';
 
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -15,20 +15,22 @@ import Swal from 'sweetalert2';
 
 import { idUniversal } from 'src/environments/environment';
 import { Proveedor, Usuario } from 'src/app/models/persona';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { CajaService } from 'src/app/services/caja.service';
+import { PersonaUsuario } from 'src/app/models/personaUsuario';
 
 
 @Component({
-  selector: 'app-crearModificarCategoria.component',
-  templateUrl: './crearModificarCategoria.component.html',
-  styleUrls: ['./crearModificarCategoria.component.css'],
+  selector: 'app-resumenGeneral.component',
+  templateUrl: './resumenGeneral.component.html',
+  styleUrls: ['./resumenGeneral.component.css'],
 
 
 })
 
-export class CrearModificarCategoriaComponent implements OnInit {
+export class ResumenGeneralComponent implements OnInit {
 
 
   public botonParaGuardar: Boolean = false;
@@ -46,7 +48,9 @@ export class CrearModificarCategoriaComponent implements OnInit {
 
 
   formGrupos = new FormGroup({
-    nombre: new FormControl<String>('', [Validators.required, Validators.pattern(/^[a-z\s\u00E0-\u00FC\u00f1]*$/i)]),
+    usuario: new FormControl<any>('', [Validators.required]),
+    inicio: new FormControl<any>('', [Validators.required]),
+    fin: new FormControl<any>('', [Validators.required]),
 
   })
 
@@ -55,11 +59,15 @@ export class CrearModificarCategoriaComponent implements OnInit {
   public ProveedorListaGuardar: Proveedor = new Proveedor();
   public CategoriaListaGuardar: Categoria = new Categoria();
 
+
+  public UsuarioLista: PersonaUsuario[] = [];
+
   constructor(
     private _snackBar: MatSnackBar,
     private router: Router,
-
+    private usuarioService: UsuarioService,
     private categoriaService: CategoriaService,
+    private cajaService: CajaService,
   ) {
   }
 
@@ -71,6 +79,29 @@ export class CrearModificarCategoriaComponent implements OnInit {
   public controlFecha: Boolean = false;
 
   public controlInicio() {
+
+    this.usuarioService.getAllUsuarios(idEmpresa.getIdEmpresa).subscribe(value => {
+      this.UsuarioLista = value;
+
+
+      var fecha = new Date(fechaActual.getFechaActual);
+      var dias = 1; // Número de días a agregar
+      fecha.setDate(fecha.getDate() + dias);
+      this.formGrupos.setValue({
+        usuario: 0,
+        inicio: fecha,
+        fin: fecha,
+
+      })
+
+      this.filtrarInfo();
+
+    })
+
+
+
+
+
 
     if (idUniversal.getIdUniversal == 0) {
       this.botonParaGuardar = true;
@@ -86,10 +117,6 @@ export class CrearModificarCategoriaComponent implements OnInit {
 
         this.CategoriaListaGuardar.id = value.id;
 
-        this.formGrupos.setValue({
-          nombre: value.nombre,
-        })
-
         this.loaderCargaDatos = false;
       })
 
@@ -100,6 +127,38 @@ export class CrearModificarCategoriaComponent implements OnInit {
 
   }
 
+
+  public subotal?: any;
+  public descuento?: any;
+  public iva?: any;
+  public  total?: any;
+
+  public entrada?: any;
+  public baja?: any;
+
+  public apertura?: any;
+  public cobrado?: any;
+  public porCobrar?: any;
+  public ganancia?: any;
+
+
+  public filtrarInfo() {
+
+    this.cajaService.getResumen(Object.values(this.formGrupos.getRawValue())[0], idEmpresa.getIdEmpresa, Object.values(this.formGrupos.getRawValue())[1], Object.values(this.formGrupos.getRawValue())[2]).subscribe(value => {
+      console.info(value)
+      this.subotal = value.subotal.toFixed(2);
+      this.descuento = value.descuento.toFixed(2);
+      this.iva = value.iva.toFixed(2);
+      this.total = value.total.toFixed(2);
+      this.entrada = value.entrada.toFixed(2);
+      this.baja = value.baja.toFixed(2);
+      this.apertura = value.apertura.toFixed(2);
+      this.cobrado = value.cobrado.toFixed(2);
+      this.porCobrar = value.porCobrar.toFixed(2);
+      this.ganancia = value.ganancia.toFixed(2);
+
+    })
+  }
 
   public botonCancelarRegistro() {
     this.router.navigate(['/panel/biblioteca/administracioncategoria']);

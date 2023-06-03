@@ -61,6 +61,14 @@
         <button mat-menu-item [routerLink]="'/panel/biblioteca/creaModificarCierreCaja'">Cierre de Caja</button>
       </mat-menu>
 
+      <button mat-button [matMenuTriggerFor]="admi"> <mat-icon>add_shopping_cart</mat-icon><br>ADMINISTRACIÓN</button>
+
+
+      <mat-menu #admi="matMenu">
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCobroCaja'">Cobro Caja</button>
+        <button mat-menu-item [routerLink]="'/panel/biblioteca/resumenGeneral'">Resumen</button>
+
+      </mat-menu>
 
     </td>
 

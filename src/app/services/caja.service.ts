@@ -5,7 +5,7 @@ import { map, Observable } from "rxjs";;
 import { VentaResponse } from '../models/venta';
 import { ContenidoCreditoClienteRequest } from '../models/credito';
 import { InformacionBasica } from '../models/extras';
-import { CajaRequest, CierreCaja } from '../models/caja';
+import { CajaRequest, CajaResponse, CajaResponse1, CierreCaja } from '../models/caja';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,9 @@ export class CajaService {
     return this.http.get(this.urlEndPoint + "/caja/contarApertura/" + cedulaUsuario + "/" + fecha, { headers: this.httpHeaders }).pipe(map(Response => Response as InformacionBasica))
   }
 
+  getCajaNoCobrado(idEmpresa: any): Observable<CajaResponse[]> {
+    return this.http.get(this.urlEndPoint + "/caja/allCajaNoCobrado/" + idEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as CajaResponse[]))
+  }
 
   createApertura(data: CajaRequest): Observable<CajaRequest> {
     console.info(data)
@@ -37,4 +40,15 @@ export class CajaService {
     console.info(data)
     return this.http.post(environment.URL_APP + "/caja/registrarCierreCaja", data, { headers: this.httpHeaders })
   }
+
+  createCobroCaja(data: CajaRequest): Observable<CajaRequest> {
+    console.info(data)
+    return this.http.post(environment.URL_APP + "/caja/registrarCobroCaja", data, { headers: this.httpHeaders })
+  }
+
+  getResumen(idUsuario: any, idEmpresa: any, fechInicio: any, fechaFin: any): Observable<CajaResponse1> {
+    return this.http.get(this.urlEndPoint + "/caja/resumen/" + idUsuario + "/" + idEmpresa + "/" + fechInicio + "/" + fechaFin, { headers: this.httpHeaders }).pipe(map(Response => Response as CajaResponse1))
+  }
+
+
 }

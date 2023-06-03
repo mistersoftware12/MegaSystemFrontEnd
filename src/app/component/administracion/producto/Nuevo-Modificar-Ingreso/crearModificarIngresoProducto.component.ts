@@ -2,7 +2,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { fechaActual, idEmpresa } from 'src/environments/environment';
+import { cedula, fechaActual, idEmpresa } from 'src/environments/environment';
 
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -108,6 +108,7 @@ export class CrearModificarIngresoProductoComponent implements OnInit {
     this.IngresoBajaListaGuardar.fechaRegistro = fechaActual.getFechaActual;
     this.IngresoBajaListaGuardar.idProducto = idUniversal.getIdUniversal;
     this.IngresoBajaListaGuardar.observacion = "";
+    this.IngresoBajaListaGuardar.cedulaUsuario= cedula.getCedula;
 
 
     this.ingresoBajaProductoService.createIngresoBajaProducto(this.IngresoBajaListaGuardar,1).subscribe(value => {

@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/biblioteca-valle-frond-end",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

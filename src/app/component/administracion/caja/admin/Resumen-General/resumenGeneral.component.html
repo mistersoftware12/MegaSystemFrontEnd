@@ -1,0 +1,290 @@
+<section>
+    <br>
+    <mat-card class="example-card" style="background: #F2F1E9">
+        <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
+
+        <div style="overflow-x:auto; ">
+            <mat-progress-bar *ngIf="loaderCargaDatos" mode="indeterminate"></mat-progress-bar>
+            <div>
+                <div class="opcion1fd">
+                    <h3> <strong>RESUMEN</strong></h3>
+                </div>
+            </div>
+
+            <table [formGroup]="formGrupos">
+                <tr>
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Seleccione Usuario</mat-label>
+                            <mat-select formControlName="usuario">
+                                <mat-option [value]=0>
+                                    Todos
+                                </mat-option>
+
+                                <mat-option *ngFor="let option2 of UsuarioLista"
+                                    [value]="option2.idUsuario">{{option2.nombres+" "+option2.apellidos}}
+                                </mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha Inicio</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="inicio">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha Fin</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="fin">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+
+                    <td>
+                        <button mat-raised-button mat-flat-button style="background-color: #5565b6; color: #FFFFFF;"
+                            (click)="filtrarInfo()"> BUSCAR
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table style="text-align: center;" class="tablastyle">
+                <tr class="tablastyle" style="background-color: aqua;">
+                    <td class="tablastyle">
+                        <strong>VENTAS</strong>
+                    </td>
+
+                    <td class="tablastyle">
+                        <strong>CONCURRENCIA</strong>
+                    </td>
+
+                    <td class="tablastyle">
+                        <strong>COBROS</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tablastyle">
+                        <table>
+
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>SUBTOTAL</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{subotal}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>DESCUENTO</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{descuento}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>IVA</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{iva}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>TOTAL</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{total}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                    </td>
+
+                    <td class="tablastyle">
+                        <table>
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>ENTRADAS</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{entrada}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>BAJAS</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{baja}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                    </td>
+
+                    <td class="tablastyle">
+                        <table>
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>APERTURA</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{apertura}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>COBRADO</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{cobrado}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>POR COBRAR</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{porCobrar}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <td style="width: 45%;">
+                                    <strong>GANANCIA</strong>
+                                </td>
+
+                                <td style="width: 45%; ">
+                                    {{ganancia}}
+                                </td>
+
+                                <td style="width: 10%; ">
+                                    <button mat-raised-button mat-flat-button
+                                        style="background-color: #5565b6; color: #FFFFFF;"
+                                        (click)="botonCancelarRegistro()">
+                                        <mat-icon>remove_red_eye</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                    </td>
+
+
+                </tr>
+
+
+            </table>
+
+
+        </div>
+
+    </mat-card>
+</section>
+
+
+<br>

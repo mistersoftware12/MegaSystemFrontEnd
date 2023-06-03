@@ -45,6 +45,7 @@ export class IngresoBajaProducto {
     fechaRegistro?: any;
     idProducto?: any;
     observacion?: any;
+    cedulaUsuario?:any;
 }
 
 

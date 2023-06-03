@@ -24,6 +24,8 @@ import { CrearModificarVentaComponent } from './venta/Nuevo-Modificar-Venta/crea
 import { ListarVentaComponent } from './venta/Listar-Venta/listar-venta.component';
 import { ListarCreditosComponent } from './creditos/Clientes/Listar-Creditos/listar-credito.component';
 import { CrearModificarCierreCajaComponent } from './caja/cierrecaja/Nuevo-Modificar-Cierre/crearModificarCierreCaja.component';
+import { ListarCobroCajaComponent } from './caja/admin/Listar-Cobro/listar-cobro-caja.component';
+import { ResumenGeneralComponent } from './caja/admin/Resumen-General/resumenGeneral.component';
 registerLocaleData(localeEs, 'es')
 
 
@@ -39,7 +41,7 @@ const routes: Routes = [
     path: 'administracionusuarios',
     component: CrudUsuariosComponent
   },
-  
+
   {
     path: 'creaModificaUsuario',
     component: CrearModificarUsuarioComponent
@@ -50,7 +52,7 @@ const routes: Routes = [
     path: 'administracionclientes',
     component: ListarClienteComponent
   },
-  
+
   {
     path: 'creaModificarCliente',
     component: CrearModificarClienteComponent
@@ -60,7 +62,7 @@ const routes: Routes = [
     path: 'administracionproveedor',
     component: ListarProveedorComponent
   },
-  
+
   {
     path: 'creaModificarProveedor',
     component: CrearModificarProveedorComponent
@@ -70,7 +72,7 @@ const routes: Routes = [
     path: 'administracioncategoria',
     component: ListarCategoriaComponent
   },
-  
+
   {
     path: 'creaModificarCategoria',
     component: CrearModificarCategoriaComponent
@@ -80,7 +82,7 @@ const routes: Routes = [
     path: 'administracionProducto',
     component: ListarProductoComponent
   },
-  
+
   {
     path: 'creaModificarProducto',
     component: CrearModificarProductoComponent
@@ -100,7 +102,7 @@ const routes: Routes = [
     path: 'administracionProduccion',
     component: ListarProduccionComponent
   },
-  
+
   {
     path: 'creaModificarProduccion',
     component: CrearModificarProduccionComponent
@@ -124,12 +126,25 @@ const routes: Routes = [
     component: CrearModificarCierreCajaComponent
   },
 
+  {
+    path: 'administracionCobroCaja',
+    component: ListarCobroCajaComponent
+  },
+
+
+  {
+    path: 'resumenGeneral',
+    component: ResumenGeneralComponent
+  },
+
+
+
 ]
 
 @NgModule({
   declarations: [
     BienvenidaComponent,
-    
+
     CrudUsuariosComponent,
     CrearModificarUsuarioComponent,
 
@@ -156,7 +171,9 @@ const routes: Routes = [
     ListarCreditosComponent,
 
 
-    CrearModificarCierreCajaComponent
+    CrearModificarCierreCajaComponent,
+    ListarCobroCajaComponent,
+    ResumenGeneralComponent,
   ],
   imports: [
     CommonModule,

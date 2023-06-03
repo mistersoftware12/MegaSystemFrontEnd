@@ -10,3 +10,26 @@ export class CierreCaja {
   totalEfectivo?: any;
   totalVenta?: any;
 }
+
+export class CajaResponse {
+  id?: any;
+  nombreUsuario?: any;
+  fechaCaja?: any;
+  saldoApertura?: any;
+  saltoEfectivo?: any;
+}
+
+export class CajaResponse1 {
+  subotal?: any;
+  descuento?: any;
+  iva?: any;
+  total?: any;
+
+  entrada?: any;
+  baja?: any;
+
+  apertura?: any;
+  cobrado?: any;
+  porCobrar?: any;
+  ganancia?: any;
+}
