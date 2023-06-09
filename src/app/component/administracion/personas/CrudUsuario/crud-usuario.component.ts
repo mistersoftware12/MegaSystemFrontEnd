@@ -159,34 +159,52 @@ export class CrudUsuariosComponent implements OnInit {
             { text: 'USUARIOS REGISTRADOS', fontSize: 15, bold: true, alignment: 'center' },
             //{ text: 'Usuarios registrados en la Empresa  ', fontSize: 15, margin: [0, 0, 20, 0] },
             { text: '    ' },
+
+
             {
               table: {
                 headerRows: 1,
-                widths: ['7%', '10%', '19%', '19%', '11%',  '23%', '10%'],
+                widths: ['100%',],
                 body: [
-                  ['ID', 'CEDULA', 'NOMBRES', 'APELLIDOS', 'ROL',  'CORREO', 'TELEFONO'],
-                  [value.map(function (item) {
-                    return { text: item.id + '', fontSize: 11 }
-                  }),
-                  value.map(function (item) {
-                    return { text: item.cedula + '', fontSize: 11 }
-                  }),
-                  value.map(function (item) {
-                    return { text: item.nombres + '', fontSize: 11 }
-                  }),
-                  value.map(function (item) {
-                    return { text: item.apellidos + '', fontSize: 11 }
-                  }),
-                  value.map(function (item) {
-                    return { text: item.nombreRol + '', fontSize: 11 }
-                  }),
-                 
-                  value.map(function (item) {
-                    return { text: item.email + '', fontSize: 11 }
-                  }),
-                  value.map(function (item) {
-                    return { text: item.telefono + '', fontSize: 11 }
-                  })
+                  [
+                    {
+                      layout: 'noBorders',
+                      table: {
+                        widths: ['7%', '10%', '19%', '19%', '11%', '23%', '10%'],
+                        body: [
+                          [{ text: 'ID', bold: true, alignment: 'center' }, { text: 'CÉDULA', bold: true, alignment: 'center' }, { text: 'NOMBRES', bold: true, alignment: 'center' }, { text: 'APELLIDOS', bold: true, alignment: 'center' }, { text: 'ROL', bold: true, alignment: 'center' }, { text: 'CORREO', bold: true, alignment: 'center' }, { text: 'TELÉFONO', bold: true, alignment: 'center' }],
+                        ]
+                      }
+                    }],
+                  [
+                    value.map(function (item) {
+                      return {
+                        layout: 'noBorders',
+
+                        table: {
+                          widths: ['7%', '10%', '19%', '19%', '11%', '23%', '10%'],
+                          body: [
+                            [
+
+                              { text: '' + item.id, fontSize: 10, alignment: 'center' },
+                              { text: '' + item.cedula, fontSize: 10, alignment: 'center' },
+                              { text: '' + item.nombres, fontSize: 10, alignment: 'center' },
+                              { text: '' + item.apellidos, fontSize: 10, alignment: 'center' },
+                              { text: '' + item.nombreRol, fontSize: 10, alignment: 'center' },
+                              { text: '' + item.email, fontSize: 10, alignment: 'center' },
+                              { text: '' + item.telefono, fontSize: 10, alignment: 'center' },
+
+                            ],
+
+                          ]
+                        }
+
+
+                      }
+                    }),
+
+
+
                   ],
 
                 ]

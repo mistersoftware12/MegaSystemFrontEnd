@@ -169,6 +169,8 @@ export class ListarCreditosComponent implements OnInit {
   }
 
 
+
+  
   generatePDF() {
     this.loaderActualizar = true
     var pipe: DatePipe = new DatePipe('es')

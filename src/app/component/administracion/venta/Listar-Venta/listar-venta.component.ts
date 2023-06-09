@@ -80,7 +80,7 @@ export class ListarVentaComponent implements OnInit {
 
     let text = fechaActual.getFechaActual;
     const myArray = text.split("-");
-  
+
     this.listarInformacion(myArray[1], myArray[0]);
   }
 
@@ -185,7 +185,7 @@ export class ListarVentaComponent implements OnInit {
     const book: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
-    XLSX.writeFile(book, 'Lista de Productos.xlsx');
+    XLSX.writeFile(book, 'Lista de Ventas.xlsx');
   }
 
 

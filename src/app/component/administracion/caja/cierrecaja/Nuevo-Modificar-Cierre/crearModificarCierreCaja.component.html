@@ -82,15 +82,15 @@
                 <div class="opcion1fd">
                     <mat-progress-bar *ngIf="loaderActualizar" mode="indeterminate"></mat-progress-bar>
 
-                   
 
-                    <button  [disabled]=" idCajaControl==0 || estadoCierreCaja==true"  *ngIf="botonParaActualizar==true" mat-flat-button
-                        color="primary" style="color: #FFFFFF;" class=".buttonguardar"
+
+                    <button [disabled]=" idCajaControl==0 || estadoCierreCaja==true" *ngIf="botonParaActualizar==true"
+                        mat-flat-button color="primary" style="color: #FFFFFF;" class=".buttonguardar"
                         (click)="guardarInformacionEditar()">
                         <mat-icon>save</mat-icon> GUARDAR
                     </button>
 
-                    
+
                 </div>
             </div>
         </div>

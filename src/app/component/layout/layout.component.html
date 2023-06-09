@@ -5,7 +5,7 @@
       <button class="botonmenu" mat-button [routerLink]="'/panel/biblioteca/bienvenida'">
         <mat-icon>home</mat-icon> <br>HOME</button>
 
-      <button mat-button [matMenuTriggerFor]="animals"> <mat-icon>settings</mat-icon><br>MANTENIMIENTO</button>
+      <button mat-button [matMenuTriggerFor]="animals"> <mat-icon> business </mat-icon><br>MANTENIMIENTO</button>
       <mat-menu #animals="matMenu">
         <button mat-menu-item [matMenuTriggerFor]="invertebrates">Personas</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracioncategoria'">Categoria</button>
@@ -20,7 +20,7 @@
 
 
 
-      <button mat-button [matMenuTriggerFor]="articulo"> <mat-icon>dialpad</mat-icon><br>PRODUCTOS</button>
+      <button mat-button [matMenuTriggerFor]="articulo"> <mat-icon>shopping_basket</mat-icon> <br>PRODUCTOS</button>
 
       <mat-menu #articulo="matMenu">
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionProducto'">Mis Productos</button>
@@ -30,7 +30,7 @@
       </mat-menu>
 
 
-      <button mat-button [matMenuTriggerFor]="produccion"> <mat-icon>help_outline</mat-icon><br>PRODUCCIÓN</button>
+      <button mat-button [matMenuTriggerFor]="produccion"> <mat-icon>shopping_basket</mat-icon><br>PRODUCCIÓN</button>
 
 
       <mat-menu #produccion="matMenu">
@@ -45,7 +45,7 @@
       </mat-menu>-->
 
 
-      <button mat-button [matMenuTriggerFor]="ordenCompra"> <mat-icon>add_shopping_cart</mat-icon><br>VENTA</button>
+      <button mat-button [matMenuTriggerFor]="ordenCompra"> <mat-icon>shopping_cart</mat-icon><br>VENTA</button>
 
 
       <mat-menu #ordenCompra="matMenu">
@@ -53,7 +53,7 @@
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionVenta'">Mis Ventas</button>
       </mat-menu>
 
-      <button mat-button [matMenuTriggerFor]="caja"> <mat-icon>add_shopping_cart</mat-icon><br>CAJA</button>
+      <button mat-button [matMenuTriggerFor]="caja"><mat-icon>account_balance</mat-icon><br>CAJA</button>
 
 
       <mat-menu #caja="matMenu">
@@ -61,17 +61,20 @@
         <button mat-menu-item [routerLink]="'/panel/biblioteca/creaModificarCierreCaja'">Cierre de Caja</button>
       </mat-menu>
 
-      <button mat-button [matMenuTriggerFor]="admi"> <mat-icon>add_shopping_cart</mat-icon><br>ADMINISTRACIÓN</button>
+      <button mat-button [matMenuTriggerFor]="admi"> <mat-icon>supervised_user_circle</mat-icon><br>ADMINISTRACIÓN</button>
 
 
       <mat-menu #admi="matMenu">
         <button mat-menu-item [routerLink]="'/panel/biblioteca/administracionCobroCaja'">Cobro Caja</button>
         <button mat-menu-item [routerLink]="'/panel/biblioteca/resumenGeneral'">Resumen</button>
-
       </mat-menu>
 
 
-      <button mat-button [matMenuTriggerFor]="admia"> <mat-icon>add_shopping_cart</mat-icon><br>ADMINISTRACIÓN</button>
+      <!--
+      <button *ngIf="persona.idRol == 1" mat-button [matMenuTriggerFor]="admia">
+        <mat-icon>add_shopping_cart</mat-icon><br>ADMINISTRACIÓN</button>
+-->
+
 
 
       <mat-menu #admia="matMenu">

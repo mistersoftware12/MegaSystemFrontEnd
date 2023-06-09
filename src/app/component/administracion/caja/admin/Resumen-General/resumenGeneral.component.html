@@ -32,7 +32,7 @@
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Fecha Inicio</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="inicio">
+                            <input matInput [matDatepicker]="picker" formControlName="inicio" [min]="fechaControl" [max]="fechaAactual">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -41,14 +41,14 @@
                     <td>
                         <mat-form-field appearance="outline">
                             <mat-label>Fecha Fin</mat-label>
-                            <input matInput [matDatepicker]="picker2" formControlName="fin">
+                            <input matInput [matDatepicker]="picker2" formControlName="fin"   [max]="fechaAactual">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                     </td>
 
                     <td>
-                        <button mat-raised-button mat-flat-button style="background-color: #5565b6; color: #FFFFFF;"
+                        <button [disabled]="formGrupos.invalid " mat-raised-button mat-flat-button color="accent"
                             (click)="filtrarInfo()"> BUSCAR
                         </button>
                     </td>
@@ -57,7 +57,7 @@
 
             <br>
 
-            <table style="text-align: center;" class="tablastyle">
+            <table style="text-align: center;" class="tablastyle" *ngIf="visibilidad==true">
                 <tr class="tablastyle" style="background-color: aqua;">
                     <td class="tablastyle">
                         <strong>VENTAS</strong>
@@ -85,11 +85,7 @@
                                 </td>
 
                                 <td style="width: 10%; ">
-                                    <button mat-raised-button mat-flat-button
-                                        style="background-color: #5565b6; color: #FFFFFF;"
-                                        (click)="botonCancelarRegistro()">
-                                        <mat-icon>remove_red_eye</mat-icon>
-                                    </button>
+
                                 </td>
 
                             </tr>
@@ -103,11 +99,7 @@
                                 </td>
 
                                 <td style="width: 10%; ">
-                                    <button mat-raised-button mat-flat-button
-                                        style="background-color: #5565b6; color: #FFFFFF;"
-                                        (click)="botonCancelarRegistro()">
-                                        <mat-icon>remove_red_eye</mat-icon>
-                                    </button>
+
                                 </td>
 
                             </tr>
@@ -121,11 +113,7 @@
                                 </td>
 
                                 <td style="width: 10%; ">
-                                    <button mat-raised-button mat-flat-button
-                                        style="background-color: #5565b6; color: #FFFFFF;"
-                                        (click)="botonCancelarRegistro()">
-                                        <mat-icon>remove_red_eye</mat-icon>
-                                    </button>
+
                                 </td>
 
                             </tr>
@@ -140,8 +128,7 @@
 
                                 <td style="width: 10%; ">
                                     <button mat-raised-button mat-flat-button
-                                        style="background-color: #5565b6; color: #FFFFFF;"
-                                        (click)="botonCancelarRegistro()">
+                                        style="background-color: #5565b6; color: #FFFFFF;" (click)="abrirDialogo(1)">
                                         <mat-icon>remove_red_eye</mat-icon>
                                     </button>
                                 </td>
@@ -165,7 +152,7 @@
                                 <td style="width: 10%; ">
                                     <button mat-raised-button mat-flat-button
                                         style="background-color: #5565b6; color: #FFFFFF;"
-                                        (click)="botonCancelarRegistro()">
+                                        (click)="abrirDialogo(2)">
                                         <mat-icon>remove_red_eye</mat-icon>
                                     </button>
                                 </td>
@@ -183,7 +170,7 @@
                                 <td style="width: 10%; ">
                                     <button mat-raised-button mat-flat-button
                                         style="background-color: #5565b6; color: #FFFFFF;"
-                                        (click)="botonCancelarRegistro()">
+                                        (click)="abrirDialogo(3)">
                                         <mat-icon>remove_red_eye</mat-icon>
                                     </button>
                                 </td>
@@ -205,11 +192,12 @@
                                 </td>
 
                                 <td style="width: 10%; ">
+                                    <!--
                                     <button mat-raised-button mat-flat-button
                                         style="background-color: #5565b6; color: #FFFFFF;"
                                         (click)="botonCancelarRegistro()">
                                         <mat-icon>remove_red_eye</mat-icon>
-                                    </button>
+                                    </button>-->
                                 </td>
 
                             </tr>
@@ -226,7 +214,7 @@
                                 <td style="width: 10%; ">
                                     <button mat-raised-button mat-flat-button
                                         style="background-color: #5565b6; color: #FFFFFF;"
-                                        (click)="botonCancelarRegistro()">
+                                        (click)="abrirDialogo(4)">
                                         <mat-icon>remove_red_eye</mat-icon>
                                     </button>
                                 </td>
@@ -243,11 +231,12 @@
                                 </td>
 
                                 <td style="width: 10%; ">
+                                    <!--
                                     <button mat-raised-button mat-flat-button
                                         style="background-color: #5565b6; color: #FFFFFF;"
                                         (click)="botonCancelarRegistro()">
                                         <mat-icon>remove_red_eye</mat-icon>
-                                    </button>
+                                    </button>-->
                                 </td>
 
                             </tr>
@@ -262,11 +251,13 @@
                                 </td>
 
                                 <td style="width: 10%; ">
+                                    <!--
                                     <button mat-raised-button mat-flat-button
                                         style="background-color: #5565b6; color: #FFFFFF;"
                                         (click)="botonCancelarRegistro()">
                                         <mat-icon>remove_red_eye</mat-icon>
                                     </button>
+                                    -->
                                 </td>
 
                             </tr>
@@ -288,3 +279,113 @@
 
 
 <br>
+
+<p-dialog [(visible)]="dialogoEditarPrecioProveedor" [style]="{width:'50vw'}" [draggable]="false" [baseZIndex]="10000"
+    [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <mat-card class="dialogoStyle">
+
+            <div style="width: 340px;">
+                <mat-form-field appearance="outline" class="bordeFiltro">
+                    <mat-label>Buscar Producción</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Franklin Dominguez" #input>
+                    <mat-icon matSuffix>find_in_page</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort id="table" style="background-color: #F2F1E9;">
+
+
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>SECUENCIA</th>
+                        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
+                    </ng-container>
+
+                    <!-- Progress Column -->
+                    <ng-container matColumnDef="cedula">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA</th>
+                        <td mat-cell *matCellDef="let row"><strong>{{row.codigoBarra}}</strong> </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> USUARIO</th>
+                        <td mat-cell *matCellDef="let row"> ${{row.precioPrimeraCompra}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="telefono">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE</th>
+                        <td mat-cell *matCellDef="let row"> ${{row.precioCompra}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proveedor">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CANTIDAD</th>
+                        <td mat-cell *matCellDef="let row"> {{row.iva}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="documento">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>P. VENTA</th>
+                        <td mat-cell *matCellDef="let row">
+                            {{row.stock}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="categoria">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>GANANCIA</th>
+                        <td mat-cell *matCellDef="let row">
+                            {{row.idCategoria}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="proveedor">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>TOTAL</th>
+                        <td mat-cell *matCellDef="let row">
+                            {{row.idProveedor}}
+                        </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+
+                <mat-paginator style="background-color: #F2F1E9;" [pageSizeOptions]="[5, 10, 25, 100]"
+                    aria-label="Select page of users"></mat-paginator>
+            </div>
+
+
+            <form>
+
+                <mat-grid-list cols="2" rowHeight="4:1">
+                    <mat-grid-tile style="background-color: transparent;">
+                        <!--
+                        <button mat-flat-button color="primary" style="color: #FFFFFF;"
+                            [disabled]="formGroupPrecioProveedor.invalid" (click)=" guardarEditar()">GUARDAR</button>
+                            -->
+
+
+                    </mat-grid-tile>
+                    <mat-grid-tile style="background-color: transparent;">
+
+                        <button mat-raised-button mat-flat-button color="warn"
+                            (click)="dialogoEditarPrecioProveedor=false">CANCELAR</button>
+
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+
+
+            </form>
+        </mat-card>
+    </ng-template>
+
+</p-dialog>

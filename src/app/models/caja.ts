@@ -33,3 +33,46 @@ export class CajaResponse1 {
   porCobrar?: any;
   ganancia?: any;
 }
+
+export class Reporte1Request {
+  idUsuario?: any;
+  idEmpresa?: any;
+  fechaInicio?: any;
+  fechaFin?: any;
+  numero?:any;
+
+
+
+  ///Aqui para reporte
+
+  subotal?: any;
+  descuento?: any;
+  iva?: any;
+  total?: any;
+
+  entrada?: any;
+  baja?: any;
+
+  apertura?: any;
+  cobrado?: any;
+  porCobrar?: any;
+  ganancia?: any;
+}
+
+
+export class CajaContenidoResponse {
+  secuencia?: any;
+  fecha?: any;
+  nombreUsuario?: any;
+  nombreProducto?: any;
+  cantidad?: any;
+  precioUnitario?: any;
+  precioIva?: any;
+  total?: any;
+  ganancia?: any;
+
+  saldoApertura?:any;
+   totalVenta?:any;
+  fechaCobro?:any;
+  
+}

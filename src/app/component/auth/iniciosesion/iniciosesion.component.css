@@ -1,20 +1,25 @@
-body{
-  background-image: url("src/assets/images/fondo.jpg");
-  background-position: center; /* Center the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+body {
+  background-image: url("src/assets/images/venta.jpg");
+  background-position: center;
+  /* Center the image */
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
   position: absolute;
   width: 100%;
 }
+
 .example-card {
   max-width: 400px;
   margin: 10% auto;
-  background: repeating-linear-gradient(#0070c0  ,#aedaf5,#ffff);
+  background: repeating-linear-gradient(#0070c0, #aedaf5, #ffff);
 }
+
 .example-header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
 }
-.header{
+
+.header {
   color: white;
   background-color: #0070c0;
   border-radius: 10px;
@@ -24,13 +29,14 @@ body{
 mat-form-field {
   width: 100%;
 }
-mat-card-actions{
+
+mat-card-actions {
   text-align: center;
   color: white;
 }
 
 
-.bss-loader{
+.bss-loader {
   position: fixed;
   top: 0;
   left: 0;
@@ -48,4 +54,3 @@ mat-card-actions{
   margin: 1%;
   background-color: #f7f2dc;
 }
-
