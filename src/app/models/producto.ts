@@ -11,6 +11,7 @@ export class ProductoRequest {
     idCategoria?: any;
     idProveedor?: any;
     fechaPrimeraCompra?: any;
+    cedulaUsuario?: any;
 }
 
 export class ProductoResponse1 {
@@ -45,7 +46,7 @@ export class IngresoBajaProducto {
     fechaRegistro?: any;
     idProducto?: any;
     observacion?: any;
-    cedulaUsuario?:any;
+    cedulaUsuario?: any;
 }
 
 
@@ -58,3 +59,4 @@ export class ContenidoProduccion {
     precioCompra?: any;
     precioVenta?: any;
 }
+

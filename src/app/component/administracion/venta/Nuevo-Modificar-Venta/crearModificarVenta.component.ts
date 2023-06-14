@@ -64,6 +64,8 @@ export class CrearModificarVentaComponent implements OnInit {
 
   loaderActualizar: boolean;
   loaderActualizarCedula: boolean;
+  loaderActualizarProducto: boolean;
+  loaderActualizarProduccion: boolean;
 
   loaderCargaDatos: boolean;
   public controlArticulos: Boolean = false;
@@ -106,6 +108,14 @@ export class CrearModificarVentaComponent implements OnInit {
 
   formGrupoTipoPago = new FormGroup({
     pago: new FormControl<Number>(1,),
+  })
+
+  formGrupoFiltroProducto = new FormGroup({
+    filtrito: new FormControl<any>('',),
+  })
+
+  formGrupoFiltroProduccion = new FormGroup({
+    filtritoa: new FormControl<any>('',),
   })
 
   public categoriaLista: Categoria[] = [];
@@ -244,6 +254,32 @@ export class CrearModificarVentaComponent implements OnInit {
 
   }
 
+  filtrarArticulos(): void {
+
+    if (Object.values(this.formGrupoFiltroProducto.getRawValue())[0].length == 0) {
+      this.listarProductos();
+    } else {
+      this.loaderActualizarProducto = true;
+      this.productoService.getAlProdductoAguja(idEmpresa.getIdEmpresa, Object.values(this.formGrupoFiltroProducto.getRawValue())[0]).subscribe(value3 => {
+        this.productoLista = value3;
+        this.loaderActualizarProducto = false;
+      })
+    }
+  }
+
+
+  filtrarProduccion(): void {
+
+    if (Object.values(this.formGrupoFiltroProduccion.getRawValue())[0].length == 0) {
+      this.listarProduccion();
+    } else {
+      this.loaderActualizarProduccion = true;
+      this.produccionService.getAlProdductoAguja(idEmpresa.getIdEmpresa, Object.values(this.formGrupoFiltroProduccion.getRawValue())[0]).subscribe(value3 => {
+        this.produccionLista = value3;
+        this.loaderActualizarProduccion = false;
+      })
+    }
+  }
 
   public buscarCliente() {
 
@@ -277,8 +313,10 @@ export class CrearModificarVentaComponent implements OnInit {
 
 
   public listarProductos() {
+    this.loaderActualizarProducto = true;
     this.productoService.getAlProdducto(idEmpresa.getIdEmpresa).subscribe(value3 => {
       this.productoLista = value3;
+      this.loaderActualizarProducto = false;
     })
   }
 
@@ -290,8 +328,10 @@ export class CrearModificarVentaComponent implements OnInit {
 
 
   public listarProduccion() {
+    this.loaderActualizarProduccion = true;
     this.produccionService.getAlProdducto(idEmpresa.getIdEmpresa).subscribe(value3 => {
       this.produccionLista = value3;
+      this.loaderActualizarProduccion = false;
     })
 
 
@@ -348,6 +388,8 @@ export class CrearModificarVentaComponent implements OnInit {
     })
 
     this.controlArticulos = true;
+
+   
 
   }
 
@@ -550,6 +592,12 @@ export class CrearModificarVentaComponent implements OnInit {
     }
 
     this.calcularValorTabla();
+    this.formGrupoFiltroProducto.setValue({
+      filtrito: ''
+    })
+
+   
+    this.listarProductos();
   }
 
 
@@ -610,6 +658,11 @@ export class CrearModificarVentaComponent implements OnInit {
     })
 
     this.calcularValorTabla();
+    this.formGrupoFiltroProduccion.setValue({
+      filtritoa: ''
+    })
+
+    this.listarProduccion();
   }
 
 

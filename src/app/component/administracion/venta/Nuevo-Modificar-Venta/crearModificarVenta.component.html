@@ -127,7 +127,25 @@
                     <td [formGroup]="forGrupoProducto" style="width: 50%;">
                         <table>
                             <tr>
+                                <th [formGroup]="formGrupoFiltroProducto">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Filtrar Producto</mat-label>
+                                        <input matInput (input)="filtrarArticulos()"  formControlName="filtrito">
+                                    </mat-form-field>
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                            <tr>
                                 <td>
+                                    <mat-progress-bar *ngIf="loaderActualizarProducto" mode="indeterminate"></mat-progress-bar>
                                     <mat-form-field appearance="outline" style="width: 180px;">
                                         <mat-label>Seleccione Producto</mat-label>
                                         <mat-select (selectionChange)=" productoAgregar()" formControlName="producto">
@@ -170,8 +188,28 @@
 
                     <td [formGroup]="forGrupoProduccion" style="width: 50%;">
                         <table>
+
+                            <tr>
+                                <th [formGroup]="formGrupoFiltroProduccion">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Filtrar Producción</mat-label>
+                                        <input matInput (input)="filtrarProduccion()"  formControlName="filtritoa">
+                                    </mat-form-field>
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+
                             <tr>
                                 <td>
+                                    <mat-progress-bar *ngIf="loaderActualizarProduccion" mode="indeterminate"></mat-progress-bar>
                                     <mat-form-field appearance="outline" style="width: 180px;">
                                         <mat-label>Seleccione Producción</mat-label>
                                         <mat-select (selectionChange)=" produccionAgregar()"

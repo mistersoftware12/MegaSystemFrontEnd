@@ -77,8 +77,8 @@ export class ResumenGeneralComponent implements OnInit {
   public CategoriaListaGuardar: Categoria = new Categoria();
 
 
-  public fechaAactual:any;
-  public fechaControl:any;
+  public fechaAactual: any;
+  public fechaControl: any;
 
 
   public UsuarioLista: PersonaUsuario[] = [];
@@ -93,24 +93,25 @@ export class ResumenGeneralComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.filtrarResumenGeneralInfo();
     this.controlInicio();
     this.fechas();
 
   }
 
 
-  fechas(){
+  fechas() {
     const fecha = new Date();
     const añoActual = fecha.getFullYear();
-    var hoy2: String = String(fecha.getDate()+1);
+    var hoy2: String = String(fecha.getDate() + 1);
     var mesActual: String = String(fecha.getMonth() + 1);
 
     if (hoy2.length == 1) {
-        hoy2 = "0" + hoy2;
+      hoy2 = "0" + hoy2;
     }
 
     if (mesActual.length == 1) {
-        mesActual = "0" + mesActual;
+      mesActual = "0" + mesActual;
     }
 
 
@@ -118,7 +119,7 @@ export class ResumenGeneralComponent implements OnInit {
 
     this.fechaControl = "2023-06-02";
 
-    
+
   }
   public fechaNacimiento: any;
   public controlFecha: Boolean = false;
@@ -199,12 +200,12 @@ export class ResumenGeneralComponent implements OnInit {
 
   public buscaLista: Reporte1Request = new Reporte1Request();
 
-  public visibilidad:Boolean = false;
+  public visibilidad: Boolean = false;
 
 
   public filtrarInfo() {
 
-    
+
     this.buscaLista.idEmpresa = idEmpresa.getIdEmpresa;
     this.buscaLista.idUsuario = Object.values(this.formGrupos.getRawValue())[0];
     this.buscaLista.fechaInicio = Object.values(this.formGrupos.getRawValue())[1];
@@ -223,6 +224,27 @@ export class ResumenGeneralComponent implements OnInit {
       this.ganancia = value.ganancia.toFixed(2);
 
       this.visibilidad = true;
+    })
+  }
+
+
+  public productosTotal?: any;
+  public stockTotal?: any;
+  public compraEstimada?: any;
+  public ventaEstimada?: any;
+  public gananciaEstimada?: any;
+
+  public filtrarResumenGeneralInfo() {
+
+    this.cajaService.getResumenGeneralId(idEmpresa.getIdEmpresa).subscribe(value => {
+
+    
+      this.productosTotal= value.productosTotal;
+      this.stockTotal=value.stockTotal;
+      this.compraEstimada=value.compraEstimada.toFixed(2);
+      this.ventaEstimada=value.ventaEstimada.toFixed(2);
+      this.gananciaEstimada=value.gananciaEstimada.toFixed(2);
+  
     })
   }
 

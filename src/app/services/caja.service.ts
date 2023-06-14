@@ -5,7 +5,7 @@ import { map, Observable } from "rxjs";;
 import { VentaResponse } from '../models/venta';
 import { ContenidoCreditoClienteRequest } from '../models/credito';
 import { InformacionBasica } from '../models/extras';
-import { CajaContenidoResponse, CajaRequest, CajaResponse, CajaResponse1, CierreCaja, Reporte1Request } from '../models/caja';
+import { CajaContenidoResponse, CajaRequest, CajaResponse, CajaResponse1, CajaResponse3, CierreCaja, Reporte1Request } from '../models/caja';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +56,10 @@ export class CajaService {
 
   createResumenVentas(data: CajaContenidoResponse): Observable<CajaContenidoResponse> {
     return this.http.post(environment.URL_APP + "/caja/reporteVenta1", data, { headers: this.httpHeaders })
+  }
+
+  getResumenGeneralId(idEmpresa: any): Observable<CajaResponse3> {
+    return this.http.get(environment.URL_APP + "/caja/resumenGeneral/" + idEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as CajaResponse3))
   }
 
 

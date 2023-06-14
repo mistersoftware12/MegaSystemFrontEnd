@@ -29,6 +29,10 @@ export class ProduccionService {
     return this.http.get(this.urlEndPoint + "/produccion/allProduccion/" + idEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as ProduccionRequest[]))
   }
 
+  getAlProdductoAguja(idEmpresa: any , aguja:any): Observable<ProduccionRequest[]> {
+    return this.http.get(this.urlEndPoint + "/produccion/allProduccion/" + idEmpresa+"/"+aguja, { headers: this.httpHeaders }).pipe(map(Response => Response as ProduccionRequest[]))
+  }
+
   getProduccionId(id: any): Observable<ProduccionRequest> {
     return this.http.get(environment.URL_APP + "/produccion/produccion/" + id, { headers: this.httpHeaders }).pipe(map(Response => Response as ProduccionRequest))
   }

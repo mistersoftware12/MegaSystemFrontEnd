@@ -2,7 +2,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { fechaActual, idEmpresa } from 'src/environments/environment';
+import { cedula, fechaActual, idEmpresa } from 'src/environments/environment';
 
 
 import pdfMake from "pdfmake/build/pdfmake";
@@ -217,7 +217,7 @@ export class CrearModificarProductoComponent implements OnInit {
     this.productoListaGuardar.iva = Object.values(this.formGrupoPrecio.getRawValue())[1];
     this.productoListaGuardar.precioVenta = Object.values(this.formGrupoPrecio.getRawValue())[2];
     this.productoListaGuardar.fechaPrimeraCompra = fechaActual.getFechaActual;
-
+    this.productoListaGuardar.cedulaUsuario = cedula.getCedula;
 
     this.productoService.createProducto(this.productoListaGuardar).subscribe(value => {
       this._snackBar.open('Producto registrado', 'ACEPTAR');

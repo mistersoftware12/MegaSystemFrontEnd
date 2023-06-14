@@ -31,6 +31,10 @@ export class ProductoService {
     return this.http.get(this.urlEndPoint + "/producto/allProductos/" + idEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse1[]))
   }
 
+  getAlProdductoAguja(idEmpresa: any , aguja:any): Observable<ProductoResponse1[]> {
+    return this.http.get(this.urlEndPoint + "/producto/allProductos/" + idEmpresa+"/"+aguja, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse1[]))
+  }
+
 
   getProductoId(id: any): Observable<ProductoResponse> {
     return this.http.get(environment.URL_APP + "/producto/producto/" + id, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse))

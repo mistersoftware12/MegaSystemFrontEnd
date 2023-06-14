@@ -76,3 +76,11 @@ export class CajaContenidoResponse {
   fechaCobro?:any;
   
 }
+
+export class CajaResponse3 {
+  productosTotal?: any;
+  stockTotal?: any;
+  compraEstimada?: any;
+  ventaEstimada?: any;
+  gananciaEstimada?: any;
+}
