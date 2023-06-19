@@ -30,14 +30,32 @@
             </div>
             <br>
 
-            <div style="width: 340px;">
-                <mat-form-field appearance="outline" class="bordeFiltro">
-                    <mat-label>Buscar Producto</mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Franklin Dominguez" #input>
-                    <mat-icon matSuffix>find_in_page</mat-icon>
-                </mat-form-field>
-            </div>
 
+            <table style="width: 100%;">
+                <tr>
+
+                    <td>
+                        <div style="width: 340px;">
+                            <mat-form-field appearance="outline" class="bordeFiltro">
+                                <mat-label>Buscar Producto</mat-label>
+                                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Producto 1" #input>
+                                <mat-icon matSuffix>find_in_page</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div style="width: 200px;" [formGroup]="formStock">
+                            <mat-form-field appearance="outline" class="bordeFiltro">
+                                <mat-label>Buscar Stock Menor a</mat-label>
+                                <input matInput type="number" (input)="listarInformacionStock()" placeholder="Ex. 5"
+                                    #input formControlName="stock">
+                            </mat-form-field>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
 
             <div class="mat-elevation-z8">
                 <table mat-table [dataSource]="dataSource" matSort id="table" style="background-color: #F2F1E9;">

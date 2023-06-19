@@ -31,6 +31,11 @@ export class ListarProductoComponent implements OnInit {
 
   public UsuarioLista: Usuario[] = [];
 
+
+  formStock = new FormGroup({
+    stock: new FormControl<String>('', [Validators.required]),
+  })
+
   displayedColumns: string[] = ['id', 'cedula', 'nombre', 'telefono', 'correo', 'documento'];
   dataSource: MatTableDataSource<Cliente>;
 
@@ -55,7 +60,7 @@ export class ListarProductoComponent implements OnInit {
   }
 
   public mostrarNuevoIngreso(id: any) {
-   idUniversal.setIdUniversal = id;
+    idUniversal.setIdUniversal = id;
     this.router.navigate(['/panel/biblioteca/creaModificarIngresoProducto']);
   }
 
@@ -75,6 +80,26 @@ export class ListarProductoComponent implements OnInit {
       this.loaderActualizar = false;
 
     })
+
+
+  }
+
+
+  public listarInformacionStock() {
+
+    
+    if (Object.values(this.formStock.getRawValue())[0] == null) {
+      this.listarInformacion();
+    } else {
+      this.loaderActualizar = true;
+      this.productoService.getAlProdductoStock(idEmpresa.getIdEmpresa, Object.values(this.formStock.getRawValue())[0]).subscribe(value => {
+        this.dataSource = new MatTableDataSource(value);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.loaderActualizar = false;
+
+      })
+    }
 
 
   }

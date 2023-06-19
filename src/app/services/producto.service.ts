@@ -31,8 +31,12 @@ export class ProductoService {
     return this.http.get(this.urlEndPoint + "/producto/allProductos/" + idEmpresa, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse1[]))
   }
 
-  getAlProdductoAguja(idEmpresa: any , aguja:any): Observable<ProductoResponse1[]> {
-    return this.http.get(this.urlEndPoint + "/producto/allProductos/" + idEmpresa+"/"+aguja, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse1[]))
+  getAlProdductoStock(idEmpresa: any, stock: any): Observable<ProductoResponse1[]> {
+    return this.http.get(this.urlEndPoint + "/producto/allProductoStock/" + idEmpresa + "/" + stock, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse1[]))
+  }
+
+  getAlProdductoAguja(idEmpresa: any, aguja: any): Observable<ProductoResponse1[]> {
+    return this.http.get(this.urlEndPoint + "/producto/allProductos/" + idEmpresa + "/" + aguja, { headers: this.httpHeaders }).pipe(map(Response => Response as ProductoResponse1[]))
   }
 
 
